@@ -1,6 +1,6 @@
 The task was the following exercise:
 
-
+<img width="982" height="297" alt="Bildschirmfoto vom 2025-08-13 17-04-06" src="https://github.com/user-attachments/assets/945df1d7-9f78-4345-abfb-66c717f42122" />
 
 At the very beginning I tried to acces the website under the URL
 https://futurevera.thm , which already didn’t work for some reason. I also tried to take the hint in account, but didn’t really know what to make out of the fact that we had to add 10.10.152.174 in /etc/hosts as I already was not able to access the main page.
@@ -169,6 +169,7 @@ portal                  [Status: 200, Size: 69, Words: 9, Lines: 2]
 
 Obviously I only incoorperated the size flag after first running the command without it to see the most frequent size, which would be spit out. Now finally we had something we could really work with.
 
+<img width="836" height="291" alt="grafik" src="https://github.com/user-attachments/assets/ae738ba4-bfd1-4e89-98bc-8def95a0442a" />
 
 I proceeded to add these lines into /etc/hosts and was able to access these URLS in my browser.
 
@@ -278,6 +279,6 @@ Unfortunately I still had to look up YouTube videos after this. I did not realiz
 that I immediately saved as such in the editor and accessed after that. Once again I had difficulties because I used the HTTPS protocol instead of HTTP :)
 After having figured that out I finally got the flag that I desperately was looking for:
 
-
+<img width="836" height="829" alt="grafik" src="https://github.com/user-attachments/assets/b45e3a6d-a244-4631-9466-0640d4449fc1" />
 
 For the very first challenge, that was only supposed to take around 4 minutes I really took my time. I can only hope that I will learn from this and can make some notes on what to do better next time. If I start doing a daily activity out of this I can only hope to improve more and more. We will see, how my skills will evolve. For now I will rest and celebrate this (small) victory, even with all the tools and helper videos I had to take.

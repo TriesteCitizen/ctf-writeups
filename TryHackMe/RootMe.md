@@ -1,4 +1,8 @@
 # Challenge 009 - RootMe
+
+Difficulty: Very Easy (1/10)
+Completed: ✔️ 26.08.2025
+
 Apparently this is a CTF for beginners, and I really needed something slower to not get overwhelmed and the beginning seemed to be easy enough: Deploy the machine.
 
 <img width="821" height="965" alt="grafik" src="https://github.com/user-attachments/assets/5f3f3120-1d34-4c07-88e5-cc2f538e29f8" />

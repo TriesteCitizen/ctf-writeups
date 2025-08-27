@@ -5,9 +5,13 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 ---
 
 ## ⭐ Content
-- [Basic Pentesting] (TryHackMe/BasicPentesting/README.md)
-- [Name of the Room] (TryHackMe/Neighbor/README.md)
+- (TryHackMe/Brookyln Nine-Nine/README.md) ✔️
+- (TryHackMe/Neighbor/README.md)
+- (TryHackMe/Pickle Rick/README.md) ✔️
+- (TryHackMe/RootMe/README.md) ✔️ (might have to edit this)
+- (TryHackMe/TakeOver/README.md) ✔️ (might have to edit this)
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**
 - I only post solution of retired machines or publicly available challenges
+- Some of these write-ups may be a little long winded and need to be cut down. As I am at my humble beginnings I tend to write down a lot of details to remember for the future. Hopefully this is a skill that will improve over time

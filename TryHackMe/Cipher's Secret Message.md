@@ -26,6 +26,6 @@ Now, if you are me, and don't do a lot of cryptography you might have been a lit
  
 Maybe you can even see some strategy where I was trying to deduce the base value, by looking at the character we had in our encrypted message, and what value needed to be put, so the result of the modulo operation would be able to add a value big enough to get to the solution. It was only there that I understood that if the encrypted character message would be lowercase, the original one would be as well. I also (partly!) understood that the i-value would be the relevant denominator to influence how our message would get encrypted, as I hovered across the alphabet table with my finger, counting the iterations, to get to our original message. Not once thinking about how smart it could maybe be, if we could just take the encrypted message and change the arithmetic operation to a minus, to reverse the whole process.
 
-
+<img width="767" height="398" alt="Bildschirmfoto vom 2025-09-01 15-00-45" src="https://github.com/user-attachments/assets/3e058b2e-15b2-47dd-a2ae-e6de370a51f2" />
 
 As you can see by doing that we get the message much faster and are able to get a better understanding of the principles of cryptography, specificially how different operations can affect message integrity and encoding. By manipulating operators and understanding modular arithmetic, we can learn how to effectively encode and decode messages while preserving their essential characteristics. Next time I will immediately start scripting instead of doing a 

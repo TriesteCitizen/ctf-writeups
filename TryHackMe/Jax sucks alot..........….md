@@ -54,4 +54,4 @@ As we can see from the Request Body the web application is URL-encoding our inpu
 
 <img width="720" height="384" alt="image" src="https://github.com/user-attachments/assets/5219ff6e-bbce-4269-a8b7-f9568d87a9bd" />
 
-As you can see when putting the session cookie into Cyberchef we realize that the value was Base64 encoded,
+As you can see when putting the session cookie into Cyberchef we realize that the value was Base64 encoded (which we can also recognize through the '==' at the end) and returns a JSON object. We are serializing data to fetch our session cookie. To abuse that vulnerability we can google for ways to abuse deserialization in node.js. An article was talking about the fact that insecure deserialization in node.js would have been in the OWASP top 10 in 2017. Attackers would be able to transfer payloads using serialized objects. This happens when integritiy checks are not in place, which totally is the case here.

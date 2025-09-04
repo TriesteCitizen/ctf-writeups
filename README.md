@@ -12,6 +12,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/TakeOver/README.md) ✔️ (might have to edit this)
 - (TryHackMe/Evil-GPT v2/README.md) ✔️ (return at a later rate for other attack vector)
 - (TryHackMe/Order/README.md) ✔️ (return to construct a Python script for it)
+- (TryHackMe/Jax sucks alot............./README.md) ❎ (still need to beat this)
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**

@@ -3,9 +3,6 @@
 Difficulty: Easy (2/10) Completed: ✔️ 05.09.2025
 
 This one was considered an easy challenge, with many hints along the way, so I decided to go for it. In this boot2root machine we will enumerate to find open ports, decode hashes, brute force hashes and much more. I'm already very curious on what will await me. At the beginnign we just need to deploy the machine. Easy.
-
-<img width="820" height="933" alt="Bildschirmfoto vom 2025-09-05 00-54-01" src="https://github.com/user-attachments/assets/a0431a3c-d2ac-419e-be49-1eef3e1e2207" />
-
 After having done that, we have to use nmao to check for open ports again. As i felt lazy I just used the -p- flag.
 
 <img width="735" height="320" alt="image" src="https://github.com/user-attachments/assets/be42ff7c-135b-49a0-b830-a695096ba276" />
@@ -316,4 +313,4 @@ We moved to the root directory and cat'ed the flag.txt
 
 <img width="688" height="520" alt="image" src="https://github.com/user-attachments/assets/13573079-135f-4cc3-9369-5acafd921ceb" />
 
-Great. This was a fun little CTF, but I had a lot issues regarding the Virtual Machine that kept on disconnecting at the very end, when I just wanted to take a final screenshot, which was very frustrating. Next time I will also try to figure out Metaspoit, as this was my very first use of that tool, and I'm not sure if I was really able to use all of it's functionalities well. 
+Great. This was a fun little CTF, but I had a lot issues regarding the VM that kept on disconnecting at the very end, when I just wanted to take a final screenshot, which was very frustrating. Maybe I should start deploying my own machine. It would probably make a lot of stuff easier. Next time I will also try to figure out Metaspoit, as this was my very first use of that tool, and I'm not sure if I was really able to use all of it's functionalities well enough. 

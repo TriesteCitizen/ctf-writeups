@@ -1,4 +1,6 @@
-# Challenge 018 - Fowsniff CTF
+# Challenge 018 - Fowsniff CTF 
+
+<img width="92" height="93" alt="Bildschirmfoto vom 2025-09-05 16-43-24" src="https://github.com/user-attachments/assets/3fd01736-3a20-4890-81f3-7a9920460620" />
 
 Difficulty: Easy (2/10) Completed: ✔️ 05.09.2025
 

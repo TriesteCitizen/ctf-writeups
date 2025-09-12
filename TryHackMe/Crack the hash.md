@@ -99,3 +99,15 @@ Cracking performance lower than expected?
 ```
 
 While this process is guaranteed to give some results I quickly realized how long it would take for the tool to go over the whole list. Maybe if I would have different CPUs with higher core count, clock speed and better features this could have been feasible, but I may have to overthing my strategy. I realized pretty fast that 
+
+The last hash of Level 1 was quite simple again.
+
+```
+279412f945939ba78ce0758d3fd83daa
+```
+
+This hash is 32 characters long, so I decided to check out the different md hashes.
+
+<img width="166" height="112" alt="image" src="https://github.com/user-attachments/assets/98c53569-53e5-49e4-9cf9-5ce399bdf56e" />
+
+Apparently it was an md4 hash, which concludes the Level 1 section of this challenge.

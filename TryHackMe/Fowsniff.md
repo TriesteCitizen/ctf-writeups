@@ -1,11 +1,13 @@
-# Challenge 018 - Fowsniff CTF 
+<h1 align="center">Challenge 018 - Fowsniff CTF </h1>
 
-<img width="92" height="93" alt="Bildschirmfoto vom 2025-09-05 16-43-24" src="https://github.com/user-attachments/assets/3fd01736-3a20-4890-81f3-7a9920460620" />
+<p align="center">
+	<img width="92" height="93" alt="Bildschirmfoto vom 2025-09-05 16-43-24" src="https://github.com/user-attachments/assets/3fd01736-3a20-4890-81f3-7a9920460620" />
+</p>
 
-Difficulty: Easy (2/10) Completed: ✔️ 05.09.2025
+<p align="center"> Difficulty: Easy (2/10) Completed: ✔️ 05.09.2025 </p>
 
-This one was considered an easy challenge, with many hints along the way, so I decided to go for it. In this boot2root machine we will enumerate to find open ports, decode hashes, brute force hashes and much more. I'm already very curious on what will await me. At the beginnign we just need to deploy the machine. Easy.
-After having done that, we have to use nmao to check for open ports again. As i felt lazy I just used the -p- flag.
+This one was considered an easy challenge, with many hints along the way, so I decided to go for it. In this boot2root machine we will enumerate to find open ports, decode hashes, brute force hashes and much more. I'm already very curious on what will await me. At the beginning we just need to deploy the machine. Easy.
+After having done that, we have to use nmap to check for open ports again. As i felt lazy I just used the -p- flag.
 
 <img width="735" height="320" alt="image" src="https://github.com/user-attachments/assets/be42ff7c-135b-49a0-b830-a695096ba276" />
 

@@ -1,5 +1,8 @@
-# Challenge 002: Corridor
-Difficulty: 1/10 (Very Easy) Completed: 16.08.2025 ✔️
+<h1 align="center">Challenge 002 - Corridor </h1>
+<p align="center">
+  <img width="90" height="90" alt="Bildschirmfoto vom 2025-09-18 18-06-37" src="https://github.com/user-attachments/assets/a79dbef4-79b9-4df7-8af4-03ffe8a91445" />
+</p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 16.08.2025 </p>
 
 This time we have the following challenge:
 

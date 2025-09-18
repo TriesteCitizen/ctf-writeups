@@ -2,7 +2,7 @@
 <p align="center">
   <img width="90" height="89" alt="Bildschirmfoto vom 2025-09-18 10-20-53" src="https://github.com/user-attachments/assets/776245bc-61dd-4d6a-ad02-30564ff3e995" />
 </p>
-<p align="center"> Difficulty: 2 (Easy) Completed: ✔️ 18.9.2025 </p>
+<p align="center"> <b>Difficulty</b>: 2 (Easy) <b>Completed</b>: ✔️ 18.9.2025 </p>
 
 In this challenge we have to hack into a vulnerable database server that collects and stores data in JSON-based document formats. This challenge is probably a little bit more easy as it's semi-guided, but I hope I can still learn something from it.
 So after deploying the machine we are asked how many ports are open, so we quickly proceed with the usual procedures. Scanning ports with nmap.

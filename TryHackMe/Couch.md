@@ -2,7 +2,7 @@
 <p align="center">
   <img width="90" height="89" alt="Bildschirmfoto vom 2025-09-18 10-20-53" src="https://github.com/user-attachments/assets/776245bc-61dd-4d6a-ad02-30564ff3e995" />
 </p>
-<p align="center"> <b>Difficulty</b>: 2 (Easy) <b>Completed</b>: ✔️ 18.9.2025 </p>
+<p align="center"> <b>Difficulty</b>: 2/10 (Easy) <b>Completed</b>: ✔️ 18.9.2025 </p>
 
 In this challenge we have to hack into a vulnerable database server that collects and stores data in JSON-based document formats. This challenge is probably a little bit more easy as it's semi-guided, but I hope I can still learn something from it.
 So after deploying the machine we are asked how many ports are open, so we quickly proceed with the usual procedures. Scanning ports with nmap.
@@ -95,7 +95,7 @@ Cute. That takes care of that.
 
 With that we move on to the question that asks us what the credentials found in the web admistration tool would be. When looking at the admin panel again, you can already see how a database "secret" was smiling at us the entire time, just asking to be checked out. When looking at the key of said database we see a query that displays a password in plaintext.
 
-<img width="755" height="146" alt="image" src="https://github.com/user-attachments/assets/a139d276-35b0-40d8-8736-bb4f84d6cad4" />
+<img width="755" height="146" alt="Bildschirmfoto vom 2025-09-18 12-30-52" src="https://github.com/user-attachments/assets/a94a9b5a-2027-4cb4-9fee-6fe2270098e6" />
 
 Sure, let's take that with us. Now we are able to access the ssh. It's time for some boot to root action again. 
 

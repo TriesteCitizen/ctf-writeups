@@ -14,6 +14,15 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Order/README.md) ✔️ (return to construct a Python script for it)
 - (TryHackMe/Jax sucks alot............./README.md) ❎ (still need to beat this)
 - (TryHackMe/Fowsniff CTF/README.md) ✔️ (Figure out Metasploit)
+- (TryHackMe/Crack The Hash/README.md) ❎ (Not finished due to poor performance of CPU, which makes the running of rockyou.txt close to impossible. Will finish once I have found a workaround to this)
+
+## Attack Vectors
+- Steganography
+- SQL Injection
+- Brute Forcing
+- (PHP) Reverse Shell
+- Enumeration
+- boot to root
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**

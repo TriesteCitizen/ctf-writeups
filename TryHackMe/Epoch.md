@@ -2,7 +2,7 @@
 <p align="center">
   <img width="106" height="107" alt="output-onlinepngtools" src="https://github.com/user-attachments/assets/77db303d-12cb-49be-a6a1-3d31eeaf1315" />
 </p>
-<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: 18.09.2025 </p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 18.09.2025 </p>
 
 In this challenge we work with a tool that is able to convert our UNIX dates and timestamps. For that we only have to access a website that passes our input along to that command-line program. When we write down the targets information we are greeted with following URL
 

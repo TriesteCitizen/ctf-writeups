@@ -1,5 +1,8 @@
-# Challenge 016 - Cipher's Secret Message
-Difficulty: Very Easy (1/10) Completed: ✔️ 30.08.2025 
+<h1 align="center">Challenge 016 - Cipher's Secret Message </h1>
+<p align="center">
+  <img width="92" height="92" alt="Bildschirmfoto vom 2025-09-18 18-16-29-Photoroom" src="https://github.com/user-attachments/assets/acfee808-963f-4878-89d5-52ad70b64668" />
+</p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 30.08.2025 </p>
 
 I did another Cryptography challenge as I felt like I could really improve when it comes to reading Python script in general. So for this task we analyzed source code to figure out how an encryption algorithm worked. We also had a secret message, which needed to be decoded. 
 ```
@@ -28,4 +31,4 @@ Maybe you can even see some strategy where I was trying to deduce the base value
 
 <img width="767" height="398" alt="Bildschirmfoto vom 2025-09-01 15-00-45" src="https://github.com/user-attachments/assets/3e058b2e-15b2-47dd-a2ae-e6de370a51f2" />
 
-As you can see by doing that we get the message much faster and are able to get a better understanding of the principles of cryptography, specificially how different operations can affect message integrity and encoding. By manipulating operators and understanding modular arithmetic, we can learn how to effectively encode and decode messages while preserving their essential characteristics. Next time I will immediately start scripting instead of doing a 
+As you can see by doing that we get the message much faster and are able to get a better understanding of the principles of cryptography, specificially how different operations can affect message integrity and encoding. By manipulating operators and understanding modular arithmetic, we can learn how to effectively encode and decode messages while preserving their essential characteristics. Next time I will immediately start scripting instead of producing a bunch of notes.

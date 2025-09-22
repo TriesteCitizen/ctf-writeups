@@ -17,19 +17,23 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Crack The Hash/README.md) ❎ (Not finished due to poor performance of CPU, which makes the running of rockyou.txt close to impossible. Will finish once I have found a workaround to this)
 - (TryHackMe/Couch/README.md) ✔️
 - (TryHackMe/Epoch/README.md) ✔️
+- (TryHackMe/Easy Peasy/README.md) ✔️ (add python script for ROT13 if necessary)
 
 ## ⚔️ Attack Vectors
-- Steganography
+- Check Page Source
+- Steganography (steghide (with given password) and stegcracker)
+- Use decryption tools and Hash Analyzers
 - SQL Injection
 - Brute Forcing
 - Command Injection (modify payload according to given program/check for environment variables)
-- (PHP) Reverse Shell
-- Enumeration
+- (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
+- Enumeration (with hidden directories)
 - boot to root
--   SUID binaries
--   sudoers file
--   check loghistory (RCE through Docker)
--   sudo
+  1. SUID binaries
+  2. sudoers file
+  3. check loghistory (RCE through Docker)
+  4. sudo
+  5. cronjob vulnerability
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**

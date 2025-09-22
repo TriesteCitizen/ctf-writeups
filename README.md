@@ -18,10 +18,14 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Couch/README.md) ✔️
 - (TryHackMe/Epoch/README.md) ✔️
 - (TryHackMe/Easy Peasy/README.md) ✔️ (add python script for ROT13 if necessary)
+- (TryHackMe/c4ptur3-th3-fl4g/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Check Page Source
-- Steganography (steghide (with given password) and stegcracker)
+- CyberChef
+- Security through obscurity (tools: binwalk / StegOnline)
+- Spectography ( https://academo.org/demos/spectrum-analyzer/ )
+- Steganography (steghide (with given password) and stegcracker) 
 - Use decryption tools and Hash Analyzers
 - SQL Injection
 - Brute Forcing

@@ -21,20 +21,27 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/c4ptur3-th3-fl4g/README.md) ✔️
 - (TryHackMe/Agent sudo/README.md) ❎ (Not finished due to no proper configuration of binwalk in VM. Will return to it once I have set up my own VM with Kali Linux)
 - (TryHackMe/Stolen Mount/README.md) ✔️ (maybe return at a later date, to try other ways to retrieve the files of the TCP stream)
+- (TryHackMe/CTF collection Vol.1/README.md) ✔️
 
 ## ⚔️ Attack Vectors
+- Reverse-Engineering
+  1. strings
 - IT-Forensic
-  1. Filter protocols
+  1. Filter protocols (http.request.method=="GET", given protocol)
   2. Check TCP stream
   3. Look for interesting files (.exe, .zip, passwords etc.)
   4. If stream contains zip file --> save tcp stream as raw and unzip
 - Check Page Source
 - CyberChef
+- Esoteric Programming Languages
+- Wayback machine
+- png (Check header information through hex dump)
 - Security through obscurity (tools: binwalk / StegOnline)
 - Spectography ( https://academo.org/demos/spectrum-analyzer/ )
 - Steganography (steghide (with given password) and stegcracker) 
-- Use decryption tools and Hash Analyzers
+- Use decryption tools and Hash Analyzers (ROT, Vigenère Cipher, md5/4)
 - SQL Injection
+- Network Inspection
 - Brute Forcing (with tools like hydra (e.g. Agent Sudo)
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)

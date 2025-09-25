@@ -19,6 +19,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Epoch/README.md) ✔️
 - (TryHackMe/Easy Peasy/README.md) ✔️ (add python script for ROT13 if necessary)
 - (TryHackMe/c4ptur3-th3-fl4g/README.md) ✔️
+- (TryHackMe/Agent sudo/README.md) ❎ (Not finished due to no proper configuration of binwalk in VM. Will return to it once I have set up my own VM with Kali Linux)
 
 ## ⚔️ Attack Vectors
 - Check Page Source
@@ -28,7 +29,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Steganography (steghide (with given password) and stegcracker) 
 - Use decryption tools and Hash Analyzers
 - SQL Injection
-- Brute Forcing
+- Brute Forcing (with tools like hydra (e.g. Agent Sudo)
+- curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
 - Enumeration (with hidden directories)
@@ -44,3 +46,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - I only post solution of retired machines or publicly available challenges
 - Some of these write-ups may be a little long winded and need to be cut down. As I am at my humble beginnings I tend to write down a lot of details to remember for the future. Hopefully this is a skill that will improve over time
 - There may are write-ups that I will return to, because there are several attack vectors for specific challenges and I'm only showcasing one type of it. The more knowledge I will gather the more I will try to experiment with what I'm given.
+
+<p align="center">
+  <img width="232" height="238" alt="Bildschirmfoto vom 2025-09-25 12-21-11" src="https://github.com/user-attachments/assets/644db5df-efed-4473-9b2d-539758ff45a0" />
+</p>

@@ -20,8 +20,14 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Easy Peasy/README.md) ✔️ (add python script for ROT13 if necessary)
 - (TryHackMe/c4ptur3-th3-fl4g/README.md) ✔️
 - (TryHackMe/Agent sudo/README.md) ❎ (Not finished due to no proper configuration of binwalk in VM. Will return to it once I have set up my own VM with Kali Linux)
+- (TryHackMe/Stolen Mount/README.md) ✔️ (maybe return at a later date, to try other ways to retrieve the files of the TCP stream)
 
 ## ⚔️ Attack Vectors
+- IT-Forensic
+  1. Filter protocols
+  2. Check TCP stream
+  3. Look for interesting files (.exe, .zip, passwords etc.)
+  4. If stream contains zip file --> save tcp stream as raw and unzip
 - Check Page Source
 - CyberChef
 - Security through obscurity (tools: binwalk / StegOnline)

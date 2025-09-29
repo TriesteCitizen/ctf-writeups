@@ -10,13 +10,7 @@ This is my first real attempt to do some reverse engineering without using the *
 
 First I started Ghidra and dropped the binaries into a project
 
-With that a Decompiled main was visible and with that a local variable *local_78* which is a dynamically generated name used by the decompiler to refer to a local variable within a function that has a size of 78 bytes.
-
-<img width="717" height="713" alt="Bildschirmfoto vom 2025-09-29 11-40-58" src="https://github.com/user-attachments/assets/c371697d-58a7-41b5-972e-85ffebed6040" />
-
-I tried converting those hexadecimal values into ascii in hopes of finding out a string value, which could be our password, but was not able to do that. 
-
-After that I tried just running the file
+I analyzed a lot of registers but then figured I should maybe first run the program to see what could happen.
 
 ```
 lorenzo@lorenzo-HP-Laptop-15s-eq2xxx:~/Downloads$ ./crackme1

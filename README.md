@@ -22,10 +22,16 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Agent sudo/README.md) ❎ (Not finished due to no proper configuration of binwalk in VM. Will return to it once I have set up my own VM with Kali Linux)
 - (TryHackMe/Stolen Mount/README.md) ✔️ (maybe return at a later date, to try other ways to retrieve the files of the TCP stream)
 - (TryHackMe/CTF collection Vol.1/README.md) ✔️
+- (TryHackMe/Reversing ELF/README.md) ✔️ (sure... maybe I return to see how good I can read Assembly)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
-  1. strings
+  1. check permissions (change them with chmod 777/chmod +x if not executable)
+  2. run application
+  3. strings
+  4. ltrace
+  5. Ghidra (Decompiler)
+  6. check for hexadecimal value and if we can convert to ascii or decimal
 - IT-Forensic
   1. Filter protocols (http.request.method=="GET", given protocol)
   2. Check TCP stream

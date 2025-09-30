@@ -23,6 +23,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Stolen Mount/README.md) ✔️ (maybe return at a later date, to try other ways to retrieve the files of the TCP stream)
 - (TryHackMe/CTF collection Vol.1/README.md) ✔️
 - (TryHackMe/Reversing ELF/README.md) ✔️ (sure... maybe I return to see how good I can read Assembly)
+- TryHackMe/Gallery/README.md) ✔️ (multiple attack vectors here, so worth another try)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -53,12 +54,18 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
 - Enumeration (with hidden directories)
+In Shell:
+- if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials
+  1. mysql -u <username> -p
+  2. SHOW DATABASES; | USE <DATABASE>; | SHOW TABLES; | SELECT * FROM <TABLE>; etc.
 - boot to root
   1. SUID binaries
-  2. sudoers file
-  3. check loghistory (RCE through Docker)
-  4. sudo
-  5. cronjob vulnerability
+  2. sudo -l (list of all commands the user can run as sudo)
+  3. sudoers file
+  4. Enumeration (check for backup files in var (log_history)
+  5. check loghistory (RCE through Docker)
+  6. sudo
+  7. cronjob vulnerability
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**

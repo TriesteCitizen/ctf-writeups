@@ -24,6 +24,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/CTF collection Vol.1/README.md) ✔️
 - (TryHackMe/Reversing ELF/README.md) ✔️ (sure... maybe I return to see how good I can read Assembly)
 - (TryHackMe/Gallery/README.md) ✔️ (multiple attack vectors here, so worth another try)
+- (TryHackMe/SakuraRoom/README.md) ❎ (deprecated sites that make the finding of the BSSID and deep paste impossible (or at least difficult. I also never used Tor)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -39,9 +40,13 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   3. Look for interesting files (.exe, .zip, passwords etc.)
   4. If stream contains zip file --> save tcp stream as raw and unzip
 - Check Page Source
+- OSINT (Open Source Intelligence)
+  1. Inspect picture
+  2. Wayback machine
+  3. check social media sites / alternative usernames
+  4. check commits
 - CyberChef
 - Esoteric Programming Languages
-- Wayback machine
 - png (Check header information through hex dump)
 - Security through obscurity (tools: binwalk / StegOnline)
 - Spectography ( https://academo.org/demos/spectrum-analyzer/ )

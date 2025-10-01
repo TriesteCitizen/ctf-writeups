@@ -25,6 +25,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Reversing ELF/README.md) ✔️ (sure... maybe I return to see how good I can read Assembly)
 - (TryHackMe/Gallery/README.md) ✔️ (multiple attack vectors here, so worth another try)
 - (TryHackMe/SakuraRoom/README.md) ❎ (deprecated sites that make the finding of the BSSID and deep paste impossible (or at least difficult. I also never used Tor)
+- (TryHackMe/Anthem/READMe.md) ✔️ (Try the last few tasks with Power Shell)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -45,7 +46,10 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   2. Wayback machine
   3. check social media sites / alternative usernames
   4. check commits
-- CyberChef
+- Gain access to a Windows machine through Linux -> rdesktop IP-ADDRESS
+  1. View < Hidden Items
+  2. Change Permissions: Right Click < Properties < Security < Edit < "everyone" < OK < Apply
+  3. Power Shell 
 - Esoteric Programming Languages
 - png (Check header information through hex dump)
 - Security through obscurity (tools: binwalk / StegOnline)
@@ -59,10 +63,10 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
 - Enumeration (with hidden directories)
-In Shell:
-- if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials
-  1. mysql -u <username> -p
-  2. SHOW DATABASES; | USE <DATABASE>; | SHOW TABLES; | SELECT * FROM <TABLE>; etc.
+- In Shell:
+  1.if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials
+  2. mysql -u <username> -p
+  3. SHOW DATABASES; | USE <DATABASE>; | SHOW TABLES; | SELECT * FROM <TABLE>; etc.
 - boot to root
   1. SUID binaries
   2. sudo -l (list of all commands the user can run as sudo)
@@ -71,6 +75,7 @@ In Shell:
   5. check loghistory (RCE through Docker)
   6. sudo
   7. cronjob vulnerability
+- CyberChef
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**
@@ -78,7 +83,6 @@ In Shell:
 - Some of these write-ups may be a little long winded and need to be cut down. As I am at my humble beginnings I tend to write down a lot of details to remember for the future. Hopefully this is a skill that will improve over time
 - There may are write-ups that I will return to, because there are several attack vectors for specific challenges and I'm only showcasing one type of it. The more knowledge I will gather the more I will try to experiment with what I'm given.
 
-
 <p align="center">
-  <img width="225" height="209" alt="u n i t y" src="https://github.com/user-attachments/assets/a2a3bd9c-fd0d-42c3-8093-6e5ef2f66df1" />
+  <img width="238" height="214" alt="Bildschirmfoto vom 2025-10-01 22-06-31" src="https://github.com/user-attachments/assets/348da3d7-d3bb-4191-9e2e-b923273f31a8" />
 </p>

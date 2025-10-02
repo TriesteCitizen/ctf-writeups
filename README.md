@@ -27,6 +27,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/SakuraRoom/README.md) ❎ (deprecated sites that make the finding of the BSSID and deep paste impossible (or at least difficult. I also never used Tor)
 - (TryHackMe/Anthem/READMe.md) ✔️ (Try the last few tasks with Power Shell)
 - (TryHackMe/Archangel/README.md) ❎ (still on going. Need to look up Log Poisoning first, as I never did that)
+- (TryHackMe/Lo-Fi/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

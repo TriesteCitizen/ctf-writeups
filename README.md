@@ -26,6 +26,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Gallery/README.md) ✔️ (multiple attack vectors here, so worth another try)
 - (TryHackMe/SakuraRoom/README.md) ❎ (deprecated sites that make the finding of the BSSID and deep paste impossible (or at least difficult. I also never used Tor)
 - (TryHackMe/Anthem/READMe.md) ✔️ (Try the last few tasks with Power Shell)
+- (TryHackMe/Archangel/README.md) ❎ (still on going. Need to look up Log Poisoning first, as I never did that)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -63,6 +64,10 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
 - Enumeration (with hidden directories)
+- Does the webserver host multiple websites?
+  1. If yes -> add that domain name to the etc/hosts file with the IP-Address
+- LFI (Local File Inclusion) https://www.hackthebox.com/files/cheatsheet-file-inclusion.pdf
+  1. PHP Wrappers (e.g. http://mafialive.thm/test.php?view=php://filter/read=convert.base64-encode/resource=/var/www/html/development_testing/test.php) -> then analyze source code
 - In Shell:
   1.if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials
   2. mysql -u <username> -p

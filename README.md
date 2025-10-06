@@ -28,6 +28,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Anthem/READMe.md) ✔️ (Try the last few tasks with Power Shell)
 - (TryHackMe/Archangel/README.md) ❎ (still on going. Need to look up Log Poisoning first, as I never did that)
 - (TryHackMe/Lo-Fi/README.md) ✔️
+- (TryHackMe/Surfer/README.md)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -65,6 +66,9 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
 - Enumeration (with hidden directories)
+- robots.txt
+- SSRF (Server-Side Request Forgery)
+  1. Check for any hidden server, where crafted requests from a vulnerable server to internal or external resources can be done using Burp Suite (url parameter can maybe be modified) 
 - Does the webserver host multiple websites?
   1. If yes -> add that domain name to the etc/hosts file with the IP-Address
 - LFI (Local File Inclusion) https://www.hackthebox.com/files/cheatsheet-file-inclusion.pdf

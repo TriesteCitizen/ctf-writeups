@@ -28,7 +28,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Anthem/READMe.md) ✔️ (Try the last few tasks with Power Shell)
 - (TryHackMe/Archangel/README.md) ❎ (still on going. Need to look up Log Poisoning first, as I never did that)
 - (TryHackMe/Lo-Fi/README.md) ✔️
-- (TryHackMe/Surfer/README.md)
+- (TryHackMe/Surfer/README.md) ✔️
+- (TryHackMe/Res/README.md) ❎ (still on going. Need to research how to set up the right script for a web shell, which shouldn't be difficult)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -61,6 +62,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Use decryption tools and Hash Analyzers (ROT, Vigenère Cipher, md5/4)
 - SQL Injection
 - Network Inspection
+- Web Shells (malicious script that can be uploaded to a web server)
 - Brute Forcing (with tools like hydra (e.g. Agent Sudo)
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)

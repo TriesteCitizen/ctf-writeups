@@ -30,6 +30,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Lo-Fi/README.md) ✔️
 - (TryHackMe/Surfer/README.md) ✔️
 - (TryHackMe/Res/README.md) ❎ (still on going. Need to research how to set up the right script for a web shell, which shouldn't be difficult)
+- (TryHackMe/Agent T/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -64,6 +65,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Network Inspection
 - Web Shells (malicious script that can be uploaded to a web server)
 - Brute Forcing (with tools like hydra (e.g. Agent Sudo)
+- nmap
+  1. Check version of software. Can it be exploited? https://www.exploit-db.com/ 
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )

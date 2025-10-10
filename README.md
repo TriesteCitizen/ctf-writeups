@@ -34,6 +34,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Simple CTF/README.md) ✔️ (get back to it, to abuse the CVE-2019-9053 exploit instead of anonymously logging into the FTP port)
 - (TryHackMe/Cat Pictures/README.md) ❎ (look up Port Knocking to move on here)
 - (TryHackMe/Scripting/README.md) ❎ (Finished only one of the three tasks. Need to figure out how to print the whole response body first before trying to extract the given port on which we read the operations)
+- (TryHackMe/Dig Dug/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -71,6 +72,10 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Web Shells (malicious script that can be uploaded to a web server)
 - Brute Forcing (with tools like hydra into FTP or SSH (e.g. Agent Sudo))
 - Port Knocking when ports are given
+- DNS enumeration with dig or nslookup
+  1. For mail server checking: dig givemetheflag.com MX
+  2. For text record checking: dig givemetheflag.com TXT
+  3. For general information about a domain: dig dig @10.10.240.191 givemetheflag.com
 - nmap -p- -sV -A
   1. Check version of software by browsing too. Can it be exploited? https://www.exploit-db.com/ 
 - curl (-A to specify User-Agent. -L to follow any redirects)

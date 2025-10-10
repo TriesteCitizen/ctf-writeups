@@ -32,6 +32,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Res/README.md) ❎ (still on going. Need to research how to set up the right script for a web shell, which shouldn't be difficult)
 - (TryHackMe/Agent T/README.md) ✔️
 - (TryHackMe/Simple CTF/README.md) ✔️ (get back to it, to abuse the CVE-2019-9053 exploit instead of anonymously logging into the FTP port)
+- (TryHackMe/Cat Pictures/README.md) ❎ (look up Port Knocking to move on here)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -66,8 +67,9 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Network Inspection
 - Web Shells (malicious script that can be uploaded to a web server)
 - Brute Forcing (with tools like hydra into FTP or SSH (e.g. Agent Sudo))
+- Port Knocking when ports are given
 - nmap -p- -sV -A
-  1. Check version of software. Can it be exploited? https://www.exploit-db.com/ 
+  1. Check version of software by browsing too. Can it be exploited? https://www.exploit-db.com/ 
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )

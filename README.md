@@ -33,6 +33,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Agent T/README.md) ✔️
 - (TryHackMe/Simple CTF/README.md) ✔️ (get back to it, to abuse the CVE-2019-9053 exploit instead of anonymously logging into the FTP port)
 - (TryHackMe/Cat Pictures/README.md) ❎ (look up Port Knocking to move on here)
+- (TryHackMe/Scripting/README.md) ❎ (Finished only one of the three tasks. Need to figure out how to print the whole response body first before trying to extract the given port on which we read the operations)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -48,6 +49,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   3. Look for interesting files (.exe, .zip, passwords etc.)
   4. If stream contains zip file --> save tcp stream as raw and unzip
 - Check Page Source
+- Scripting
+  1. See source code examples for different scenarios (Scripting.md)
 - OSINT (Open Source Intelligence)
   1. Inspect picture
   2. Wayback machine

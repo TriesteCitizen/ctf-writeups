@@ -35,6 +35,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Cat Pictures/README.md) ❎ (look up Port Knocking to move on here)
 - (TryHackMe/Scripting/README.md) ❎ (Finished only one of the three tasks. Need to figure out how to print the whole response body first before trying to extract the given port on which we read the operations)
 - (TryHackMe/Dig Dug/README.md) ✔️
+- (TryHackMe/Memory Forensics/README.md) ❎ (Wrong configuration of Volatility. Before that isn't set up right, I can't do any proper memory forensics.)
+- (TryHackMe/Intermediate Nmap/README.md) ✔️  
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -49,6 +51,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   2. Check TCP stream
   3. Look for interesting files (.exe, .zip, passwords etc.)
   4. If stream contains zip file --> save tcp stream as raw and unzip
+  5. Volatility tool if we need to handle dmp/vmem files (look up Cheat sheet) 
 - Check Page Source
 - Scripting
   1. See source code examples for different scenarios (Scripting.md)
@@ -101,6 +104,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   5. check loghistory (RCE through Docker)
   6. sudo
   7. cronjob vulnerability
+  8. always check the permissions. We might still be able to access or read specific directories and files
 - CyberChef
 - GTFOBins
 

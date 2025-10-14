@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/a0bd8e0b-737b-481c-8791-1e4eead01af4"width="90" height="90" />
 </div>
 <br>
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️  </p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 14.10.2025  </p>
 
 In this CTF we will have to analyze a suspicious file, uncover hidden clues, and trace the source of the infection. A lot of blue teaming is expected from us this time around and I will have to work with tools I'm not that familiar with, but I hope this experience will be valuable nonetheless.
 

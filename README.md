@@ -36,7 +36,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Scripting/README.md) ❎ (Finished only one of the three tasks. Need to figure out how to print the whole response body first before trying to extract the given port on which we read the operations)
 - (TryHackMe/Dig Dug/README.md) ✔️
 - (TryHackMe/Memory Forensics/README.md) ❎ (Wrong configuration of Volatility. Before that isn't set up right, I can't do any proper memory forensics.)
-- (TryHackMe/Intermediate Nmap/README.md) ✔️  
+- (TryHackMe/Intermediate Nmap/README.md) ✔️
+- (TryHackMe/Shadow Trace/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

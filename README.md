@@ -38,6 +38,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Memory Forensics/README.md) ❎ (Wrong configuration of Volatility. Before that isn't set up right, I can't do any proper memory forensics.)
 - (TryHackMe/Intermediate Nmap/README.md) ✔️
 - (TryHackMe/Shadow Trace/README.md) ✔️
+- (TryHackMe/Summit/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -47,6 +48,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   4. ltrace
   5. Ghidra (Decompiler)
   6. check for hexadecimal value and if we can convert to ascii or decimal
+- Blue Teaming 🔵
+  - Pyramid of Pain (1. Hash values | 2. IP-Addresses | 3. Domain Names | 4. Network/Host Artifacts | 5. Tools | 6. TTPs
 - IT-Forensic
   1. Filter protocols (http.request.method=="GET", given protocol)
   2. Check TCP stream

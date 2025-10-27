@@ -39,6 +39,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Intermediate Nmap/README.md) ✔️
 - (TryHackMe/Shadow Trace/README.md) ✔️
 - (TryHackMe/Summit/README.md) ✔️
+- (TryHackMe/Friday Overtime/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -55,7 +56,11 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   2. Check TCP stream
   3. Look for interesting files (.exe, .zip, passwords etc.)
   4. If stream contains zip file --> save tcp stream as raw and unzip
-  5. Volatility tool if we need to handle dmp/vmem files (look up Cheat sheet) 
+  5. Volatility tool if we need to handle dmp/vmem files (look up Cheat sheet)
+  6. VirusTotal
+  7. Check hashsum of specific sha1sum file.txt
+  8. Look for reports on specific libraries 
+  
 - Check Page Source
 - Scripting
   1. See source code examples for different scenarios (Scripting.md)

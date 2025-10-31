@@ -40,6 +40,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Shadow Trace/README.md) ✔️
 - (TryHackMe/Summit/README.md) ✔️
 - (TryHackMe/Friday Overtime/README.md) ✔️
+- (TryHackMe/CyberHeroes/README.md) ✔️
+- (TryHackMe/Brute It/README.md) ❎ (My file was deleted and never recovered after my laptop crashed and I'm too lazy to repeat that process. If some time passed I will take care of this)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -62,6 +64,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   8. Look for reports on specific libraries 
   
 - Check Page Source
+  1. for client-side written JavaScript code that should be written on the server side and can be exploited (Authentification Bypass)
+  2. for hidden messages
 - Scripting
   1. See source code examples for different scenarios (Scripting.md)
 - OSINT (Open Source Intelligence)

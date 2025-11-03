@@ -42,6 +42,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Friday Overtime/README.md) ✔️
 - (TryHackMe/CyberHeroes/README.md) ✔️
 - (TryHackMe/Brute It/README.md) ❎ (My file was deleted and never recovered after my laptop crashed and I'm too lazy to repeat that process. If some time passed I will take care of this)
+- (TryHackMe/ToolsRus/README.md) ✔️ (might try Nikto again to find out the server version of the Tomcat service)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -97,7 +98,11 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
-- Enumeration (with hidden directories)
+- Tools for Enumeration (with hidden directories)
+  1. gobuster
+  2. hydra
+  3. Metasploit
+  4. Nikto
 - robots.txt
 - SSRF (Server-Side Request Forgery)
   1. Check for any hidden server, where crafted requests from a vulnerable server to internal or external resources can be done using Burp Suite (url parameter can maybe be modified) 

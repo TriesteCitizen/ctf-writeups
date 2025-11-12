@@ -43,6 +43,9 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/CyberHeroes/README.md) ✔️
 - (TryHackMe/Brute It/README.md) ❎ (My file was deleted and never recovered after my laptop crashed and I'm too lazy to repeat that process. If some time passed I will take care of this)
 - (TryHackMe/ToolsRus/README.md) ✔️ (might try Nikto again to find out the server version of the Tomcat service)
+- (TryHackMe/JPGChat/README.md) ❎ (I only need to modify a specific library, but I got sick these last few days. I'm so close to finishing this though!)
+- (TryHackMe/NinjaSkills/README.md) ❎ (I apparently am not as good in Linux as I thought and need to get back to this!!!)
+- (TryHackMe/Source/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

@@ -46,6 +46,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/JPGChat/README.md) ❎ (I only need to modify a specific library, but I got sick these last few days. I'm so close to finishing this though!)
 - (TryHackMe/NinjaSkills/README.md) ❎ (I apparently am not as good in Linux as I thought and need to get back to this!!!)
 - (TryHackMe/Source/README.md) ✔️
+- (TryHackMe/Lian_Yu/README.md)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -101,8 +102,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - curl (-A to specify User-Agent. -L to follow any redirects)
 - Command Injection (modify payload according to given program/check for environment variables)
 - (PHP/Bash) Reverse Shells ( https://www.invicti.com/learn/reverse-shell/ )
-- Tools for Enumeration (with hidden directories)
-  1. gobuster
+- Tools for Enumeration (with hidden directories. Always choose your wordlist carefully and in context to the situation. "/usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt" is a good pick in most cases)
+  1. gobuster (for appending specific strings we can also add a -x flag at the end to clarify a specific one)
   2. hydra
   3. Metasploit
   4. Nikto

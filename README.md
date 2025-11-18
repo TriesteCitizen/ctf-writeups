@@ -4,7 +4,12 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 
 ---
 
-## ⭐ Content
+## ⭐ Content [TryHackMe Rooms]
+<div align="center">
+  <img width="600" height="300" alt="tryhackme" src="https://github.com/user-attachments/assets/36ed71aa-a95e-4a8e-b562-21c26a1c05e0" />
+</div>
+<br>
+
 - (TryHackMe/Brookyln Nine-Nine/README.md) ✔️
 - (TryHackMe/Neighbor/README.md)
 - (TryHackMe/Pickle Rick/README.md) ✔️

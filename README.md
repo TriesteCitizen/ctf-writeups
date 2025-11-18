@@ -46,7 +46,9 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/JPGChat/README.md) ❎ (I only need to modify a specific library, but I got sick these last few days. I'm so close to finishing this though!)
 - (TryHackMe/NinjaSkills/README.md) ❎ (I apparently am not as good in Linux as I thought and need to get back to this!!!)
 - (TryHackMe/Source/README.md) ✔️
-- (TryHackMe/Lian_Yu/README.md)
+- (TryHackMe/Lian_Yu/README.md) ✔️
+- (TryHackMe/Skynet/README.md) ❎ (need to find out how to stabilize a shell and escalate privileges)
+- (TryHackMe/Confidential/README.md) ✔️ (maybe get back and figure out a way to reveal the QR-code without any editing tools)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -66,7 +68,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   5. Volatility tool if we need to handle dmp/vmem files (look up Cheat sheet)
   6. VirusTotal
   7. Check hashsum of specific sha1sum file.txt
-  8. Look for reports on specific libraries 
+  8. Look for reports on specific libraries
+  9. when analyzing pdfs -> use editing tools (e.g. LibreOfficeDraw)
   
 - Check Page Source
   1. for client-side written JavaScript code that should be written on the server side and can be exploited (Authentification Bypass)

@@ -54,6 +54,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Lian_Yu/README.md) ✔️
 - (TryHackMe/Skynet/README.md) ❎ (need to find out how to stabilize a shell and escalate privileges)
 - (TryHackMe/Confidential/README.md) ✔️ (maybe get back and figure out a way to reveal the QR-code without any editing tools)
+- (TryHackMe/The Phishing Pond/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

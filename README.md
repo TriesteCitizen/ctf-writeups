@@ -56,6 +56,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Confidential/README.md) ✔️ (maybe get back and figure out a way to reveal the QR-code without any editing tools)
 - (TryHackMe/The Phishing Pond/README.md) ✔️
 - (TryHackMe/Ignite/README.md) ❎ (I tried an exploit but Im not sure if i can stabilize a shell through it. I still have to figure that out)
+- (TryHackMe/Library/README.md) ✔️ 
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -100,6 +101,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - Use decryption tools and Hash Analyzers (ROT, Vigenère Cipher, md5/4)
 - SQL Injection
 - Network Inspection
+- Check usernames of a web page that we could use to bruteforce passwords on other ports
 - Web Shells (malicious script that can be uploaded to a web server)
 - Brute Forcing (with tools like hydra into FTP or SSH (e.g. Agent Sudo))
 - Port Knocking when ports are given
@@ -132,11 +134,12 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   1. SUID binaries
   2. sudo -l (list of all commands the user can run as sudo)
   3. sudoers file
-  4. Enumeration (check for backup files in var (log_history)
+  4. Enumeration (check for backup files in var (log_history))
   5. check loghistory (RCE through Docker)
   6. sudo
   7. cronjob vulnerability
   8. always check the permissions. We might still be able to access or read specific directories and files
+  9. if we can run a specific python file, you might be able to modify or delete the existing file to write your own source code (see Library.md for good example)
 - CyberChef
 - GTFOBins
 

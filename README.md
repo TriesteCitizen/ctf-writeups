@@ -56,7 +56,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Confidential/README.md) ✔️ (maybe get back and figure out a way to reveal the QR-code without any editing tools)
 - (TryHackMe/The Phishing Pond/README.md) ✔️
 - (TryHackMe/Ignite/README.md) ❎ (I tried an exploit but Im not sure if i can stabilize a shell through it. I still have to figure that out)
-- (TryHackMe/Library/README.md) ✔️ 
+- (TryHackMe/Library/README.md) ✔️
+- (TryHackMe/h4cked/README.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -127,7 +128,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - LFI (Local File Inclusion) https://www.hackthebox.com/files/cheatsheet-file-inclusion.pdf
   1. PHP Wrappers (e.g. http://mafialive.thm/test.php?view=php://filter/read=convert.base64-encode/resource=/var/www/html/development_testing/test.php) -> then analyze source code
 - In Shell:
-  1.if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials
+  1.if www-data user: Check configuration files in /var/www/html or other useful phps that get mentioned in the configuration file that could have sql credentials --> to stabilize shell: $ python3 -c 'import pty; pty.spawn("bin/bash")'
   2. mysql -u <username> -p
   3. SHOW DATABASES; | USE <DATABASE>; | SHOW TABLES; | SELECT * FROM <TABLE>; etc.
 - boot to root

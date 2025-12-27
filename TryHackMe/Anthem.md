@@ -7,9 +7,9 @@
 
 This challenge is all about exploting a Windows machine. It once again is very beginner friendly so I should be able to beat it. Let's see how I will manage it.
 
-### Website Analysis
+## Website Analysis
 
-We begin with the usual which si the scanning of the ports to see how many of them are open.
+We begin with the usual which is the scanning of the ports to see how many of them are open.
 
 ```
 root@ip-10-10-39-7:~# nmap -p- -sV 10.10.177.180
@@ -38,6 +38,8 @@ When visiting the http site we see the following site.
 
 It seems to be a blog of someone.
 
+### robots.txt
+
 Anyways. Our next task is finding out what is a possible password one of the pages web crawlers would check for? I assumed that we could check the robots.txt file of the web server for that and I also got some insight through that.
 
 <img width="451" height="281" alt="Bildschirmfoto vom 2025-10-01 17-29-38" src="https://github.com/user-attachments/assets/761ae911-6585-4d56-a5f8-4f77c36d0f51" />
@@ -53,6 +55,8 @@ Moving on we have to find out what kind of CMS the website is using. A Content M
 Right again. Never heard of it. The more you know.
 
 The next question was still fairly easy. What is the domain of the website? I mean. We already checked the blog, where the name was displayed clear as day. I will refrain from further talking about this and keep on going with the next task.
+
+### OSINT
 
 Now we get to a little riddle which promises to be very fun. It's about finding out the name of the Administrator. When checking out the blog posts of the homepage we also see one post that is dedicated to the admin himself.
 
@@ -70,7 +74,7 @@ Now the last task for this section was to find the email address of the administ
 
 If the email addresses on this website all follow the same pattern, it should be very evident what the email of the Administrator should be.
 
-### Spot the flags
+## Spot the flags
 
 Now with this out of the way it's time to spot some flags. For that I tried the usual and just inspecting the Page Source. I immediately found 2 (!) flags.
 
@@ -80,7 +84,7 @@ To further enumerate we checked out all the links and pages we could click on th
 
 For this last flag I searched and searched and finally had luck when inspecting the second blog post again through the Page Source. Those were some very easily hidden flags. Almost too easy. But I won't complain as this reminded me of the fact how important it sometimes can be to check the Page Source of EVERY post.
 
-### Final Stage
+## Final Stage
 
 Now we will probably have to get into the box. For that it would pronbably be for the best to check for hidden directories like login pages with gobuster. Note: The performance of this VM was very poor, so the results might look a little weird, but it still led to results
 
@@ -142,6 +146,8 @@ Ain't that pretty? I tried to use basic SQL injection to get in, but that didn't
 
 We are in. Now the task is to gain initial access to the machine and find out the contents of user.txt. I remember there was a place in Umbraco where we could upload a file. Maybe even a Reverse Shell?
 
+### rdesktop
+
 It's only after a while that I understood that the Windows machine I was trying to access is not part of a corporate or organization domain (THE BOX IS NOT A DOMAIN). We were supposed to get remote acces through our terminal. I searched for some useful commands, which we could make use of and found rdesktop to be the perfect fit for this task
 
 
@@ -182,6 +188,8 @@ Booyah. After the succesful login the user.txt file is displayed on plain sight.
 
 <img width="974" height="792" alt="image" src="https://github.com/user-attachments/assets/57ec7185-bcee-4954-8e3c-cd4285ef03ad" />
 
+### Modification of Permissions
+
 For our penultimate task we are asked to spot some admin password. After enumerating through a lot of directories I needed a hint, so I asked for a one, which was that the file would be hidden. So we click the option "View" and check the checkbox for "Hidden Items". Immediately after that I found a backup directory in the Local Disk (C:). We couldn't open the restore.txt though as we didn't have the permissions for it. Yet. I right clicked on Properties and changed permission by clicking on the "Edit" button of the Security option.
 
 <img width="974" height="792" alt="Bildschirmfoto vom 2025-10-01 21-11-32" src="https://github.com/user-attachments/assets/14658c2e-2a80-4629-a94e-6d6efae8b266" />
@@ -193,6 +201,8 @@ By adding "everyone" and applying said modifications all groups and usernames sh
 And indeed. After trying to open said file again I was immediately welcomed by the admin password.
 
 <img width="239" height="80" alt="Bildschirmfoto vom 2025-10-01 21-14-07" src="https://github.com/user-attachments/assets/397fc5f8-1a2e-4d73-8608-2a19d905ecc8" />
+
+### Privilege Escalation
 
 Now the very last thing to do is escalating our privileges to root. I just decided to end the session with this terminal and login again with the credentials of the Administrator
 

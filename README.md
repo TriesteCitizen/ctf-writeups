@@ -58,6 +58,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Ignite/README.md) ❎ (I tried an exploit but Im not sure if i can stabilize a shell through it. I still have to figure that out)
 - (TryHackMe/Library/README.md) ✔️
 - (TryHackMe/h4cked/README.md) ✔️
+- (TryHackMe/Jack-of-All-Trades.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -79,7 +80,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   7. Check hashsum of specific sha1sum file.txt
   8. Look for reports on specific libraries
   9. when analyzing pdfs -> use editing tools (e.g. LibreOfficeDraw)
-  
+
+- If a http service is not running on port 80: configure firefox
 - Check Page Source
   1. for client-side written JavaScript code that should be written on the server side and can be exploited (Authentification Bypass)
   2. for hidden messages

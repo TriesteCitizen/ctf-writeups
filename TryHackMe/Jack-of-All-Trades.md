@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/9b8a6483-2fa4-4da7-b15b-6536a9a5e0d9" width="90" height="90" />
 </div>
 <br>
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️  </p>
+<p align="center"> <b>Difficulty</b>: 3/10 (Fairly Easy) <b>Completed</b>: ✔️ 27.12.2025 </p>
 
 It's the christmas season so it only feels right to play an appropriate box that has a christmas theme.
 
@@ -73,7 +73,7 @@ Finished
 ===============================================================
 ```
 
-Unfortunately acessing those pages through the web browser doesn't seem to be an option so I just tried to use the curl command. With the -L option it allows curl to follow redirects, which is useful since we received a 301 status code for directories like /assets. By checking out the index.html first, we see following output.
+Unfortunately acessing those pages through the web browser didn't seem to be an option so I just tried to use the curl command. With the -L option it allowed curl to follow redirects, which is useful since we received a 301 status code for directories like /assets. By checking out the index.html first, we see following output.
 
 ```
 root@ip-10-65-97-154:~# curl -L http://10.65.185.240:22/index.html
@@ -128,7 +128,7 @@ root@ip-10-65-97-154:~# curl -L http://10.65.185.240:22/assets
 </body></html>
 ```
 
-Not too shabby. Looking back at the html, we can see that jack had a note to himself hidden in the comment section that says to look in the recovery.php directory, if he ever gets locket out from something. This obviously is very interesting to us.
+Not too shabby. Looking back at the html, we can see that jack had a note to himself hidden in the comment section that says to look in the recovery.php directory, if he ever gets locked out from something. This obviously is very interesting to us.
 
 ```
 root@ip-10-65-97-154:~# curl -L http://10.65.185.240:22/recovery.php
@@ -169,9 +169,7 @@ We are immediately begged to insert the password. I didn't knew it yet, but I re
 
 <img width="981" height="495" alt="grafik" src="https://github.com/user-attachments/assets/82fbc24f-5ca5-4a38-b75e-500431941754" />
 
-Neat. And with that we can try to login to the machine again.
-
-Changing the configurations in Firefox: Several login attempts through curl led me to the decision to just change around the configurations, as I was fed up with just working with the curl command, so I wrote *about:config* in the search bar of firefox, which gave me the following alert
+Neat. And with that we can try to login to the machine again, or so I thought. Seems like curl wouldn't help us in our endeavours anymore and we would need to find a way to get access to the webpage through the browser, which is a decision I took after several login attempts through curl didn't work out. We would have to tamper with the Firefox configurations, so I wrote *about:config* in the search bar of firefox, which gave me the following alert
 
 <img width="738" height="217" alt="Bildschirmfoto vom 2025-12-27 14-48-21" src="https://github.com/user-attachments/assets/28d41ae9-b35d-4b92-8608-a056a6368008" />
 
@@ -361,9 +359,11 @@ jack@jack-of-all-trades:~$ find / -type f -perm /4000 2>/dev/null
 /bin/su
 ```
 
-One interesting command that we could abuse for privilege escalation was strings
+One interesting command that we could abuse for privilege escalation was strings. As the root.txt flag would probably be under the root directory I tried my luck by executing the command *strings /root/root.txt*, which was the right thought it seems, as it revealed the last flag.
 
-<img width="943" height="304" alt="grafik" src="https://github.com/user-attachments/assets/7f774dd3-7585-424a-b232-13b05310ab79" />
+<img width="730" height="183" alt="Bildschirmfoto vom 2025-12-27 22-21-09" src="https://github.com/user-attachments/assets/fc319b87-c824-4d2e-a596-6238603b6285" />
 
+## Lesson Learned
+In this box I got a general understanding on how we could tamper with the Firefox configurations, which was a first for me. Never did I have to deal with an http service that was running on unconventional ports. I also didn't know that some browsers would outright refuse to connect to those ports, due to security concerns, those being the indications of misconfigurations or malicious activities. Another lesson would be the reinforcing of concepts of enumerating user privileges and exploiting misconfigurations to elevate access rights through SUID. The exporting of files from remote machines to our local one was another challenge that I had to internalize. So while the challenge itself was not necessarily difficult it entailed a lot of new concepts, that I first had to get acquainted with, which made the whole process a lot more time consuming then it should have been.
 
 

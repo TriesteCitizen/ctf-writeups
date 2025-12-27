@@ -33,6 +33,8 @@ We access the website and see the following
 
 Cute. I'm already listening to Lo-Fi, so this is redundant, but the idea is still lovely. There is a Box labelled Discography which gives us the option to choose between different music options. Once you click on one of the options the URL promptly changes to http://10.10.3.234/?page=relax.php. Vulnerability spotted.
 
+### Local File Inclusion (LFI)
+
 We try appending
 
 <img width="661" height="267" alt="image" src="https://github.com/user-attachments/assets/5c00f2f3-6976-4baa-b740-2c6e31266178" />

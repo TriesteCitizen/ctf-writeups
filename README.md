@@ -59,6 +59,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Library/README.md) ✔️
 - (TryHackMe/h4cked/README.md) ✔️
 - (TryHackMe/Jack-of-All-Trades.md) ✔️
+- (TryHackMe/BankGPT.md) ✔️ (there are probably a million different ways to get the secret key)
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

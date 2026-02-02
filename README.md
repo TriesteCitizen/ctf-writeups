@@ -60,6 +60,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/h4cked/README.md) ✔️
 - (TryHackMe/Jack-of-All-Trades.md) ✔️
 - (TryHackMe/BankGPT.md) ✔️ (there are probably a million different ways to get the secret key)
+- (TryHackMe/Chill Hack.md) ❎
+- (TryHackMe/Hide and Seek.md) ❎ still on going 2/5 hints solved.
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

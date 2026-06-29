@@ -196,8 +196,11 @@ We see the item now. Let's buy it now. Keep in mind that we always have to alter
 
 After having done that the flag is ours.
 
-## Lesson Learned
-The base difficulty of this challenge wasn't all that high. As soon as you knew that this had to do with JWT Tokens, the rest was pretty self explanatory. The only thing I seem to have had more problems with was that I thought I could alter the token simply by Base64 encoding my changes. This isn't possible as JWTs are cryptographically signed. While we can *decode* the payload to read it, any modification requires us to relocate the signature to make the token valid. More on that now:
-
 <img width="929" height="417" alt="Bildschirmfoto vom 2026-06-29 20-38-17" src="https://github.com/user-attachments/assets/3429abf0-22fb-4866-b4f1-0eb53e6a9fb2" />
 
+## Lesson Learned
+The base difficulty of this challenge wasn't all that high. As soon as you knew that this had to do with JWT Tokens, the rest was pretty self explanatory. The only thing I seem to have had more problems with was that I thought I could alter the token simply by Base64 encoding my changes. This isn't possible as JWTs are cryptographically signed. While we can *decode* the payload to read it, any modification requires us to relocate the signature to make the token valid. The exact reasons on why my approach didn't work were:
+
+- **Signature Verification:** A JWT consists of three parts separated by dots: Header, Payload and Signature. The signature is created by the server using a secret key to hash the first two parts. If we change the payload, the original signature will no longer match the data jwt.io
+- **Server Rejection:** When we send an altered token, the server runs the same hashing algorithm on our modified payload. Since it won't match our forged signature - and the server has the only correct secret key to sign it properly - the server will reject the token as invalid or tampered with.
+- **The Role of a JWT Debugger:** Tools like the jwt.io Debugger allow us to bypass this during development. They let us modify the payload, but more importantly, they give us a place to input the server's private key to **re-sign** the token, generating a valid signature that the server will actually accept.

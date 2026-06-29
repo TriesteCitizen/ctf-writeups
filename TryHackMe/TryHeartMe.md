@@ -9,6 +9,7 @@ Another web enumeration challenge. The challenge contains a message for us that 
 
 "The TryHeartMe shop is open for business. Can you find a way to purchase the hidden 'Valenflag' item?"
 
+## Flag
 We are given the URL for the web application, which we access. 
 
 <img width="1111" height="791" alt="Bildschirmfoto vom 2026-06-29 15-26-48" src="https://github.com/user-attachments/assets/8b828a4e-b179-4bcc-bfc7-5639a3c2257b" />
@@ -109,3 +110,94 @@ When looking at the bottom of the form:
 we can see the site allows us to register our own account, and it passes the ?next=/admin parameter to the registration page.
 
 As an exploit we can try clicking the link or go directly to */register*. We register a brand new account using the expected email format (e.g., test@domain.local). Because of the next=/admin parameter, once we successfully register and the system logs us in automatically, it might redirect our new account straight into the /admin panel, bypassing the need to guess the admin's password.
+
+After creating the account we can check out our info in the account panel
+
+<img width="1115" height="299" alt="grafik" src="https://github.com/user-attachments/assets/79459fe3-6698-45eb-98d8-d100644eba83" />
+
+None of that helps, but after playing around with the login oage for a bit I had the realization that the server could save a JWT (JSON Web Token), a compact, secure, and self-contained standard (RFC 7519) used to safely transmit information between parties as a JSON object. It is most commonly used for user authentication (proving who you are) and authorization (proving what you are allowed to access) in web applications. The idea behind it is that instead of storing user session data on a server (which requires continuous database lookups), a JWT contains all necessary user information right inside the token itself.
+
+Keeping that in mind, the next best idea should be to intercept the JWT token using Burp Suite, as it acts as an inline proxy between our browser and the target server.
+
+When we submit the login form, the server processes our credentials and sends back a response containing the token.
+
+Thus when we send the proxy to our repeater and check out what HTTP response we receive when sending the request, we see a very interesting jwt-token.
+
+```
+HTTP/1.1 302 FOUND
+Server: Werkzeug/3.0.1 Python/3.12.3
+Date: Mon, 29 Jun 2026 17:12:59 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 189
+Location: /
+Set-Cookie: tryheartme_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZG9tYWluLmxvY2FsIiwicm9sZSI6InVzZXIiLCJjcmVkaXRzIjowLCJpYXQiOjE3ODI3NTMxNzksInRoZW1lIjoidmFsZW50aW5lIn0.x9awXfaWp6qkSpKdafo1w7WwIHr4vWp-wOZIdhy8OrY; Path=/; SameSite=Lax
+Connection: close
+
+<!doctype html>
+<html lang=en>
+<title>Redirecting...</title>
+<h1>Redirecting...</h1>
+<p>You should be redirected automatically to the target URL: <a href="/">/</a>. If not, click the link.
+```
+
+If we split the token (*tryheartme_jwt*) by its periods, we can decode the Base64 string to see exactly what information the server is tracking:
+
+**1. Header**
+- Encoded: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`
+- Decoded JSON: `{"alg": "HS256", "typ": "JWT"}`
+- Meaning: The server uses the HS256 (HMAC symmetric) algorithm to sign the token.
+
+**2. Payload**
+- Encoded: `eyJlbWFpbCI6InRlc3RAZG9tYWluLmxvY2FsIiwicm9sZSI6InVzZXIiLCJjcmVkaXRzIjowLCJpYXQiOjE3ODI3NTMxNzksInRoZW1lIjoidmFsZW50aW5lIn0`
+- Decoded JSON: `{
+  "email": "test@domain.local",
+  "role": "user",
+  "credits": 0,
+  "iat": 1782753179,
+  "theme": "valentine"
+}
+`
+- Meaning: The user currently has the role of `"user"`. To get admin privileges, a server would typically look for `"role": "admin"`.
+
+Since HS256 is a symmetric algorithm, the same secret key is used to sign and verify the token. If the developer uses a weak, default or guessable secret key (like `"secret"`, `"admin", or `"development"`, an attacker could use offline brute-force tools to guess the key, alter `"role":user` to `"role":admin`, and resign the token themselves.
+
+To escalate privileges, we forge a new JWT token by modifying the payload to change the `role` from `user` to `admin`. First, we create a new JWT header with `alg` set to `none` and then construct a payload with `"role":"admin"`.
+
+In Burp Suite we use the Proxy -> Intercept on option and forward the modified request to test admin access and reveal the admin-only content.
+
+<img width="971" height="499" alt="grafik" src="https://github.com/user-attachments/assets/515bd2f5-59aa-4d0a-81ac-83f9115ffb4e" />
+
+Using a Base64 decoder doesn't seem to work, so I pivoted to a JWT Debugger.
+
+We encode the necessary information
+
+<img width="935" height="763" alt="grafik" src="https://github.com/user-attachments/assets/0d916699-d54d-4cbf-8ce6-841d172f4ba8" />
+
+
+So '{"alg":"none","typ":"JWT"}' 
+
+<img width="935" height="763" alt="grafik" src="https://github.com/user-attachments/assets/99a5ab20-3a9f-40c2-a80a-ea86bab8ef87" />
+
+And that seems to have worked out perfectly. We get a receipt.
+
+<img width="930" height="260" alt="grafik" src="https://github.com/user-attachments/assets/121f2371-a4b5-47e2-b1dc-b8ed4b1a6f12" />
+
+Still. Even when buying every item we quickly realize that the hidden Valenflag item is nowhere to be found. We might have to intercept the HTTP request again to alter the role from user to admin
+
+<img width="920" height="709" alt="grafik" src="https://github.com/user-attachments/assets/b1482288-a9ca-4d55-9e7d-cf8ba32c5182" />
+
+We paste the encoded JWT into our HTTP request and voila
+
+<img width="919" height="704" alt="grafik" src="https://github.com/user-attachments/assets/c580ed38-5696-44cd-8f22-da687bd0ac4b" />
+
+We see the item now. Let's buy it now. Keep in mind that we always have to alter the role for every request.
+
+<img width="929" height="417" alt="grafik" src="https://github.com/user-attachments/assets/5a32afd6-3832-4d02-854e-eb0b19254b3c" />
+
+After having done that the flag is ours.
+
+## Lesson Learned
+The base difficulty of this challenge wasn't all that high. As soon as you knew that this had to do with JWT Tokens, the rest was pretty self explanatory. The only thing I seem to have had more problems with was that I thought I could alter the token simply by Base64 encoding my changes. This isn't possible as JWTs are cryptographically signed. While we can *decode* the payload to read it, any modification requires us to relocate the signature to make the token valid. More on that now:
+
+<img width="929" height="417" alt="Bildschirmfoto vom 2026-06-29 20-38-17" src="https://github.com/user-attachments/assets/3429abf0-22fb-4866-b4f1-0eb53e6a9fb2" />
+

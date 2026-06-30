@@ -63,6 +63,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Chill Hack.md) ❎
 - (TryHackMe/Hide and Seek.md) ❎ still on going 2/5 hints solved.
 - (TryHackMe/TryHeartMe.md) ✔️ (it would be great to do another challenge where you have to alter jwt)
+- (TryHackMe/Missing Person.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

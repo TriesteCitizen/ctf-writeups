@@ -14,13 +14,13 @@ There is an attached zip file with two photos with which we can start the invest
 
 <img width="1365" height="769" alt="Bildschirmfoto vom 2026-06-30 12-35-21" src="https://github.com/user-attachments/assets/28b153c6-90d8-416c-aa23-b58b648304d9" />
 
-Semms to look a lot like some kind of food hall with colorful Papel picado banners and tables.
+Seems to look a lot like some kind of food hall with colorful papel picado banners and tables.
 
 In the second picture named *MotoPG.jpg* we see a street with a sign that says "Pertamina"
 
 <img width="956" height="532" alt="grafik" src="https://github.com/user-attachments/assets/859915b6-1ed6-418f-9c58-6ed20754a0c1" />
 
-A quick Google search tells us that Pertamina is the Indeonesian state-owned integrated energy corporation headquarted in Jakarta. Founded in 1957, it is the primary manager of Indonesia's oil and gas resources and operates across the entire energy supply chain, from upstream exploration to downstream refining and retail.
+A quick Google search tells us that Pertamina is the Indeonesian state-owned integrated energy corporation headquarted in Jakarta. We can assume with a high confidence that the friend went to Indonesia for his vacation.
 
 ### What is the commercial name of this circuit?
 I did the lazy thing and just did a Reverse Image Search for the first image. Frankly I was quite confused by the question since I didn't understand which circuit the task was referring to. I have no knowledge of motorsports or their area. At least I found out the location the first picture was taken in.

@@ -75,3 +75,15 @@ But something doesn't add up, one of their ex-employees ensures you that the com
 
 Your job as an investigator is to verify their founding date using only public information.
 
+To verify the founding date we can review historical records on the Internet Archive. I entered the URL into the search bar but didn't get any results. Only after removing /jef from warc-acme.com/jef/ I got a hit.
+
+<img width="1783" height="730" alt="grafik" src="https://github.com/user-attachments/assets/3cb9de2e-8ccc-4824-972c-892930ee01dd" />
+
+After that all the necessary information about the first published website were displayed.
+
+### Mysterious Landmark
+Further Investigation uncovers another image believed to be connected to the company's international expansion.
+
+Research reveals that to the right of the iconic landmark is a building that played a big role in the fight for independence of a particular country. Signs on the external wall provides the name of the building. 
+
+Submit the name of building translated into English as the flag.

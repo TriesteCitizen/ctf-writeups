@@ -1,6 +1,6 @@
 <h1 align="center">Challenge 034 - Surfer </h1>
 <div align="center">
-  <img <img src="https://github.com/user-attachments/assets/7b6dc94b-8ced-4e84-88d7-f5a99614860a" alt="Surfer" width="90" height="90" />
+    <img src="https://github.com/user-attachments/assets/7b6dc94b-8ced-4e84-88d7-f5a99614860a" alt="Surfer" width="90" height="90" />
 </div>
 <br>
 <p align="center"> <b>Difficulty</b>: 2/10 (Easy) <b>Completed</b>: ✔️ 06.10.2025 </p>

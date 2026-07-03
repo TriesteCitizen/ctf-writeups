@@ -64,7 +64,9 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Hide and Seek.md) ❎ still on going 2/5 hints solved.
 - (TryHackMe/TryHeartMe.md) ✔️ (it would be great to do another challenge where you have to alter jwt)
 - (TryHackMe/Missing Person.md) ✔️
-- (TryHackMe/Digital Footprint.md) ❎ (I got tired. Once I feel up to doing some OSINT challenge, I'll get back to it) 
+- (TryHackMe/Digital Footprint.md) ❎ (I got tired. Once I feel up to doing some OSINT challenge, I'll get back to it)
+- (TryHackMe/CheeseCTF.md) ❎ Got user.txt but didnt get root.txt
+- (TryHackMe/Checkpoint.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

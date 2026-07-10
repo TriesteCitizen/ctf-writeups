@@ -67,6 +67,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/Digital Footprint.md) ❎ (I got tired. Once I feel up to doing some OSINT challenge, I'll get back to it)
 - (TryHackMe/CheeseCTF.md) ❎ Got user.txt but didnt get root.txt
 - (TryHackMe/Checkpoint.md) ✔️
+- (TryHackMe/PassCode.md) ❎ I don't get this at all...
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

@@ -1,8 +1,9 @@
 <h1 align="center">Challenge 065 - TryHeartMe </h1>
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/40879afe-0fdd-4303-b9f9-897bc4da4ea8" width="90" height="90" />
-</div>
-<br>
+
+<p align="center">
+  <img src="assets/tryheartme.png" width="90" height="90"/>
+</p>
+
 <p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: ✔️ 29.06.2026 </p>
 
 Another web enumeration challenge. The challenge contains a message for us that reads:
@@ -12,11 +13,11 @@ Another web enumeration challenge. The challenge contains a message for us that 
 ## Flag
 We are given the URL for the web application, which we access. 
 
-<img width="1111" height="791" alt="Bildschirmfoto vom 2026-06-29 15-26-48" src="https://github.com/user-attachments/assets/8b828a4e-b179-4bcc-bfc7-5639a3c2257b" />
+<img src="assets/img1.png" width="1111" height="791"/>
 
 This seems to be a website which gives us the possibility to buy different items. They are all valentine themed. Furthermore we can login with credentials to make a purchase. My initial assumption was that the login form might be vulnerable to SQL injection, so I tested several common payloads.
 
-<img width="408" height="324" alt="grafik" src="https://github.com/user-attachments/assets/ac7e1585-ff07-4760-a4c5-e65429b43625" />
+<img src="assets/img2.png" width="408" height="324"/>
 
 None of them worked unfortunately. Checking for hidden directories also didnt lead to any results.
 
@@ -51,7 +52,7 @@ Checking the Page Source of the login panel didn't reveal anything worthwhile ei
 
 After creating the account we can check out our info in the account panel
 
-<img width="1115" height="299" alt="grafik" src="https://github.com/user-attachments/assets/79459fe3-6698-45eb-98d8-d100644eba83" />
+<img src="assets/img3.png" width="1115" height="299"/>
 
 None of that gave me an insight on what we should do. The next best idea I had was to intercept the HTTP request using Burp Suite. It acts as an inline proxy between our browser and the target server.
 
@@ -100,37 +101,37 @@ To escalate privileges, we forge a new JWT token by modifying the payload to cha
 
 In Burp Suite we use the Proxy -> Intercept on option and forward the modified request to test admin access and reveal the admin-only content.
 
-<img width="971" height="499" alt="grafik" src="https://github.com/user-attachments/assets/515bd2f5-59aa-4d0a-81ac-83f9115ffb4e" />
+<img src="assets/img4.png" width="971" height="499"/>
 
 Using a Base64 decoder doesn't seem to work, so I pivoted to a JWT Debugger.
 
 We modify the JWT header and payload before re-encoding the token.
 
-<img width="935" height="763" alt="grafik" src="https://github.com/user-attachments/assets/0d916699-d54d-4cbf-8ce6-841d172f4ba8" />
+<img src="assets/img5.png" width="935" height="763"/>
 
 For the beginning and since I was curious I just settled on changing the credit score.
 
-<img width="935" height="763" alt="grafik" src="https://github.com/user-attachments/assets/99a5ab20-3a9f-40c2-a80a-ea86bab8ef87" />
+<img src="assets/img6.png" width="935" height="763"/>
 
 The modified token is accepted by the application. We get a receipt.
 
-<img width="930" height="260" alt="grafik" src="https://github.com/user-attachments/assets/121f2371-a4b5-47e2-b1dc-b8ed4b1a6f12" />
+<img src="assets/img7.png" width="930" height="260"/>
 
 Still. Even when buying every item we quickly realize that the hidden Valenflag item is nowhere to be found. It might be that the application is checking our role during subsequent requests rather than only during login. Let's alter the role from user to admin.
 
-<img width="920" height="709" alt="grafik" src="https://github.com/user-attachments/assets/b1482288-a9ca-4d55-9e7d-cf8ba32c5182" />
+<img src="assets/img8.png" width="920" height="709"/>
 
 Replacing the cookie with the modified JWT grants us adminstrative privileges.
 
-<img width="919" height="704" alt="grafik" src="https://github.com/user-attachments/assets/c580ed38-5696-44cd-8f22-da687bd0ac4b" />
+<img src="assets/img9.png" width="919" height="704"/>
 
 We see the item now. Let's buy it! Keep in mind that we always have to alter the role for every request.
 
-<img width="929" height="417" alt="grafik" src="https://github.com/user-attachments/assets/5a32afd6-3832-4d02-854e-eb0b19254b3c" />
+<img src="assets/img10.png" width="929" height="417"/>
 
 After having done that the flag is ours.
 
-<img width="929" height="417" alt="Bildschirmfoto vom 2026-06-29 20-38-17" src="https://github.com/user-attachments/assets/3429abf0-22fb-4866-b4f1-0eb53e6a9fb2" />
+<img src="assets/img11.png" width="929" height="417"/>
 
 ## Lesson Learned
 The base difficulty of this challenge wasn't all that high. As soon as you knew that this had to do with JWT Tokens, the rest was pretty self explanatory. The only thing I seem to have had more problems with was that I thought I could alter the token simply by Base64 encoding my changes. This isn't possible as JWTs are cryptographically signed. While we can *decode* the payload to read it, any modification requires us to relocate the signature to make the token valid. The exact reasons on why my approach didn't work were:

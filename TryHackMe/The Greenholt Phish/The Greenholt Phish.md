@@ -86,7 +86,7 @@ Under Details we can figure out the actual file type under Basic properties.
 
 <img width="1735" height="398" alt="grafik" src="https://github.com/user-attachments/assets/68e8787b-37cb-43ae-9b1a-082f4d880c74" />
 
-It's a zip file.
+It's a rar file.
 
 ### Lesson Learned
 The active analyzation of Mail headers, VirusTotal, IP Address Lookups and Mail certifications like SPF and DMARC.

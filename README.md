@@ -68,6 +68,8 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/CheeseCTF.md) ❎ Got user.txt but didnt get root.txt
 - (TryHackMe/Checkpoint.md) ✔️
 - (TryHackMe/PassCode.md) ❎ I don't get this at all...
+- (TryHackMe/ItsyBitsy.md) ✔️
+- (TryHackMe/The Greenholt Phish.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

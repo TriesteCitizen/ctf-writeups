@@ -4,7 +4,7 @@
   <img src="assets/snapped.png" width="90" height="90"/>
 </p>
 
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️  </p>
+<p align="center"> <b>Difficulty</b>: 2/10 (Easy) <b>Completed</b>: ✔️ 27.07.2026 </p>
 
 As a member of the IT department at SwiftSpend Financial, you are responsible for assisting employees with technical concerns. What initally appeared to be a routine day quickly escalated when multiple employees across different departments reported receiving a suspicious email. Several users noted unusual characteristics in the message, and unfortunately some had already submitted their credentials and were no longer able to access their accounts. With the potential for a wider compromise, the incident has been escalated for investigation. Our task is to analyze the available evidence, determine the scope of the attack, and uncover how the adversary operated.
 
@@ -130,3 +130,180 @@ After downloading the html and clicking on the file we can see the log file that
 
 <img width="583" height="279" alt="grafik" src="https://github.com/user-attachments/assets/f53f9fb8-0379-499b-8811-5c2403db9150" />
 
+Unfortunately we are not able to access the log.txt file by clicking on it. We have to use wget again.
+
+```
+damianhall@ip-10-112-182-75:~$ wget http://kennaroads.buzz/data/Update365/log.txt
+--2026-07-28 00:21:13--  http://kennaroads.buzz/data/Update365/log.txt
+Resolving kennaroads.buzz (kennaroads.buzz)... 172.67.216.206
+Connecting to kennaroads.buzz (kennaroads.buzz)|172.67.216.206|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2530 (2.5K) [text/plain]
+Saving to: ‘log.txt’
+
+log.txt             100%[===================>]   2.47K  --.-KB/s    in 0s      
+
+2026-07-28 00:21:13 (45.9 MB/s) - ‘log.txt’ saved [2530/2530]
+```
+
+This log text file contains sensitive information related to Office365 logins. It indicates potential phishing activity and captures user credentials along with their geographic information, IP addresses, and user agents used during login attempts.
+
+```
+---------+ Office365 Login  |+-------
+Email : isaiah.puzon@gmail.com
+Password : PhishMOMUKAMO123!
+-----------------------------------
+Client IP: 158.62.17.197
+User Agent : Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/112.0
+Country : Philippines
+Date: Mon Jun 29, 2020 10:00 am
+--- http://www.geoiptool.com/?IP=158.62.17.197 ----
+--+ Created BY Real Carder +---
+---------+ Office365 Login  |+-------
+Email : michael.ascot@swiftspend.finance
+Password : Invoice2023!
+-----------------------------------
+Client IP: 64.62.197.80
+User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Country : United States
+Date: Mon Jun 29, 2020 10:01 am
+--- http://www.geoiptool.com/?IP=64.62.197.80 ----
+--+ Created BY Real Carder +---
+---------+ Office365 Login  |+-------
+Email : zoe.duncan@swiftspend.finance
+Password : Passw0rd1!
+-----------------------------------
+Client IP: 64.62.197.80
+User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Country : United States
+Date: Mon Jun 29, 2020 10:01 am
+--- http://www.geoiptool.com/?IP=64.62.197.80 ----
+--+ Created BY Real Carder +---
+---------+ Office365 Login  |+-------
+Email : michael.ascot@swiftspend.finance
+Password : Invoice2023!
+-----------------------------------
+Client IP: 64.62.197.80
+User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Country : United States
+Date: Mon Jun 29, 2020 10:01 am
+--- http://www.geoiptool.com/?IP=64.62.197.80 ----
+--+ Created BY Real Carder +---
+---------+ Office365 Login  |+-------
+Email : derick.marshall@swiftspend.finance
+Password : lol
+-----------------------------------
+Client IP: 64.62.197.80
+User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Country : United States
+Date: Mon Jun 29, 2020 10:01 am
+--- http://www.geoiptool.com/?IP=64.62.197.80 ----
+--+ Created BY Real Carder +---
+---------+ Office365 Login  |+-------
+Email : michelle.chen@swiftspend.finance
+Password : testing123
+-----------------------------------
+Client IP: 64.62.197.80
+User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Country : United States
+Date: Mon Jun 29, 2020 10:01 am
+--- http://www.geoiptool.com/?IP=64.62.197.80 ----
+--+ Created BY Real Carder +---
+```
+
+The email address of the user who submitted their credentials more than once was michael.ascot@swiftspend.finance.
+
+## Extract the phishing kit archive and locate the `submit.php` file. What email address is used by the adversary to collect compromised credentials?
+First we extract the phishing kit archive using the command `unzip Update365.zip`
+
+```
+damianhall@ip-10-112-182-75:~$ unzip Update365.zip
+Archive:  Update365.zip
+   creating: Update365/office365/
+  inflating: Update365/office365/.DS_Store  
+  inflating: Update365/office365/blocker.php  
+  inflating: Update365/office365/delete.php  
+  inflating: Update365/office365/error_log  
+  inflating: Update365/office365/index.php  
+  inflating: Update365/office365/robots.txt  
+   creating: Update365/office365/scr/
+  inflating: Update365/office365/script.st  
+   creating: Update365/office365/Scriptup/
+  inflating: Update365/office365/Scriptup/marvid  
+  inflating: Update365/office365/Scriptup/newscr.pt  
+  inflating: Update365/office365/Scriptup/pagescir  
+  inflating: Update365/office365/Scriptup/script.st  
+  inflating: Update365/office365/Scriptup/updat.cmd  
+  inflating: Update365/office365/Scriptup/update  
+  inflating: Update365/office365/updat.cmd  
+   creating: Update365/office365/update/
+  inflating: Update365/office365/update/cleanup  
+  inflating: Update365/office365/update/pagesc.koo  
+  inflating: Update365/office365/update/pagescir  
+  inflating: Update365/office365/update/update  
+  inflating: Update365/office365/update/viruscle.reg  
+   creating: Update365/office365/Validation/
+  inflating: Update365/office365/Validation/ay5mw92o3or77qgeyn118kxl.php  
+  inflating: Update365/office365/Validation/enterpassword.php  
+  inflating: Update365/office365/Validation/enterpasswordagain.php  
+   creating: Update365/office365/Validation/images/
+  inflating: Update365/office365/Validation/images/0.jpg  
+ extracting: Update365/office365/Validation/images/arrow.png  
+  inflating: Update365/office365/Validation/images/favicon.png  
+  inflating: Update365/office365/Validation/images/ms-logo-v1.svg  
+  inflating: Update365/office365/Validation/images/ms-logo-v2.jpg  
+  inflating: Update365/office365/Validation/images/Office-365-Logo.png  
+  inflating: Update365/office365/Validation/images/picker_account_msa.svg  
+  inflating: Update365/office365/Validation/index.php  
+   creating: Update365/office365/Validation/js/
+  inflating: Update365/office365/Validation/js/jquery.js  
+  inflating: Update365/office365/Validation/loader.gif  
+  inflating: Update365/office365/Validation/redirecttoinbox.php  
+  inflating: Update365/office365/Validation/resubmit.php  
+  inflating: Update365/office365/Validation/retry.php  
+  inflating: Update365/office365/Validation/robots.txt  
+  inflating: Update365/office365/Validation/script.st  
+  inflating: Update365/office365/Validation/security-assurance.php  
+  inflating: Update365/office365/Validation/style.css  
+  inflating: Update365/office365/Validation/submit.php  
+  inflating: Update365/office365/Validation/updat.cmd  
+  inflating: Update365/office365/Validation/update  
+```
+
+Now we locate the submit.php.
+
+```
+damianhall@ip-10-112-182-75:~$ find Update365 -name "submit.php"
+Update365/office365/Validation/submit.php
+```
+
+After opening the file we look for the attackers email address, which is used to collect compromised credentials.
+
+<img width="551" height="801" alt="grafik" src="https://github.com/user-attachments/assets/2cc10767-2fd0-4c71-aa8a-368e7ff63ebe" />
+
+Line 112 clearly states the dedicated address.
+
+## Return to the phishing URL and locate the `flag.txt` file. Using CyberChef (opens in new tab) to decode the flag, what is the secret value?
+As I tried accessing the URL I was reminded by the fact that I couldn't access it. I tried to see where the URL was being redirected
+
+```
+damianhall@ip-10-112-182-75:~$ curl -I http://kennaroads.buzz/data/Update365/office365/
+HTTP/1.1 302 Found
+Server: nginx/1.23.4
+Date: Mon, 27 Jul 2026 17:14:10 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+X-Powered-By: PHP/8.2.5
+location: df519a29dbb585b013a9a64c48f205e7
+```
+
+The HTTP response indicates that the URL has been redirected (HTTP 302) to a new location specified by the `location` header. But even theat didn't lead to any interesting conclusions. Finally I just tested out what would happen if I would just check for a `flag.txt` file. Thankfully this seemed to have worked.
+
+<img width="654" height="78" alt="grafik" src="https://github.com/user-attachments/assets/7d94f7b3-8b62-4e8c-a571-e0b95591a47c" />
+
+Seems to be Base64 encoded. We put the input in CyberChef. After we reverse the output we finally get the solution.
+
+<img width="875" height="561" alt="Bildschirmfoto vom 2026-07-27 19-31-16" src="https://github.com/user-attachments/assets/003f763f-5472-411d-8c47-bda65884878b" />
+
+## Lesson Learned
+A lot of directory enumeration, curl and wget can be of huge help, if we want to inspect unknown phoshing domains. At the same time sometimes we also need to inspect different url directories until something works out. There is no clear path on what direction is better to take in those situations. I want to return to this challenge at a later time to maybe figure out how to solve this tasks without using the linux commands.

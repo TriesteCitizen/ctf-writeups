@@ -70,6 +70,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/PassCode.md) ❎ I don't get this at all...
 - (TryHackMe/ItsyBitsy.md) ✔️
 - (TryHackMe/The Greenholt Phish.md) ✔️
+- (TryHackMe/Snapped Phish-ing Line.md) ✔️ Return on a later date to figure out, how to do this without terminal commands. 
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering

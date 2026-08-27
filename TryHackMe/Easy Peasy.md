@@ -7,6 +7,7 @@
 In this CTF we need to do more of the simplistic attack vectors. I already feel quite comfortable with that, so I decided to make this the challenge of the day. 
 In the first task we are asked to name all the open ports. Time to scan with nmap once again
 
+### Enumeration through Nmap
 ```
 root@ip-10-10-233-29:~# nmap -p- -sV 10.10.132.69
 Starting Nmap 7.80 ( https://nmap.org ) at 2025-09-19 09:32 BST
@@ -26,10 +27,18 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 15.31 seconds
 ```
 
-We have 3 ports in total. One for http, another for ssh and one for a http service once again. The version of nginx that is used is 1.16.1 and Apache is running on the highest port, which is a HTTP Server, a free and open-source web server software that processes HTTP requests from users and serves web content like websites and applications over the internet.
+## How many ports are open?
+We have 3 ports in total. One for http, another for ssh and one for a http service once again. 
 
-```
+## What is the version of nginx?
+The version of nginx that is used is 1.16.1 and 
+
+## What is running on the highest port?
+Apache is running on the highest port, which is a HTTP Server, a free and open-source web server software that processes HTTP requests from users and serves web content like websites and applications over the internet.
+
+## Compromising the machine: Using GoBuster, find flag 1
 Having done the nmap scan we are now tasked to use GoBuster to check for some hidden directories
+```
 root@ip-10-10-233-29:~# gobuster dir -u 10.10.132.69 -w /usr/share/wordlists/dirb/common.txt
 ===============================================================
 Gobuster v3.6
@@ -92,6 +101,7 @@ Checking the Page Source yet again reveals a base64 string, which can be determi
 
 <img width="630" height="432" alt="Bildschirmfoto vom 2025-09-22 11-38-21" src="https://github.com/user-attachments/assets/a9f92396-492a-4a8e-921c-3a46864bfd3f" />
 
+## Further enumerate the machine, what is flag 2?
 Having done that we are tasked to further enumerate the machine to find the second flag. There are no further directories in *http://10.10.135.198/hidden/whatever/* even when using gobuster, so we start checking out the other services in hopes of having more look with those.
 
 When we did the nmap scan there was an Apache service that we are still able to enumerate. Checking out the website shows us the default page. Time to use gobuster.
@@ -134,6 +144,7 @@ As the file suggests only the specific user-agent ** is allowed access to certai
 
 Checking the Page Source of the Apache default site further I realize that the third flag stands there in plain sight when looking clearly.  
 
+## What is the hidden directory?
 There is also a hidden paragraph that contains a hidden base64 encoded value. 
 
 <img width="663" height="123" alt="image" src="https://github.com/user-attachments/assets/dc4a9370-be85-4374-a105-0c628ac7a764" />
@@ -148,7 +159,10 @@ Yet again something I was not aware of, but will keep in mind from now on. I sta
 
 <img width="613" height="320" alt="Bildschirmfoto vom 2025-09-22 13-18-07" src="https://github.com/user-attachments/assets/2f3e1a25-96ed-4a7f-b18d-0f5128c7ad62" />
 
-That was the right one! It gives us the lead for the hidden directory. When appending it into the URL we are greeted by this site
+That was the right one! It gives us the lead for the hidden directory. 
+
+## Using the wordlist that provided to you in this task crack the hash. What is the password?
+When appending it into the URL we are greeted by this site
 
 <img width="889" height="881" alt="Bildschirmfoto vom 2025-09-22 13-21-23" src="https://github.com/user-attachments/assets/4fde61a1-76ad-4c78-a9b6-90e0889d69ee" />
 
@@ -162,6 +176,7 @@ lorenzo@lorenzo-HP-Laptop-15s-eq2xxx:~$ hashcat -m 6900 -a 0 Hash/hash.txt Hash/
 940d71e8655ac41efb5f8ab850668505b86dd64186a66e57d1483e7f5fe6fd81:mypasswordforthatjob
 ```
 
+## What is the password to login to the machine via SSH?
 We succesfully recovered the password. As I was not sure for what exactly we could use that password for I just decided to analyze the jpg file and possibly extract some hidden data. If the image contains any embedded data and a correct password is provided, Steghide would be able to extract the data to the current directory
 
 ```
@@ -179,6 +194,8 @@ That seems to have worked. We check out the text file, which contains the userna
 <img width="545" height="390" alt="Bildschirmfoto vom 2025-09-22 14-13-22" src="https://github.com/user-attachments/assets/97356a10-7962-4259-b389-f0ef973b81ad" />
 
 We are succesful once again. Now the ssh can be accessed. 
+
+## What is the user flag?
 
 ```
 root@ip-10-10-110-50:~# ssh -p 6498 boring@10.10.135.198
@@ -208,6 +225,7 @@ I tried cat'ing the user.txt but once again we receive a value that was tampered
 
 You can also write a simple Python script for that. I may also add one in the near future, as this is fairly simple. Anyways. The last thing to do was the escalation of privileges. 
 
+## What is the root flag?
 To start with I checked the SUID binaries
 
 ```

@@ -1,7 +1,10 @@
-# Challenge 007 - Jax sucks alot...........
+<h1 align="center">Jax sucks alot........... </h1>
 
-Difficulty: 
-Completed: 
+<p align="center">
+  <img src="assets/jaxsucks.png" width="90" height="90"/>
+</p>
+
+<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️   </p>
 
 Another day, another CTF. This time with a challenge that probably wants us to work with some sort of code injection.
 

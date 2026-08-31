@@ -1,3 +1,5 @@
+<h1 align="center">Itsy Bitsy </h1>
+
 <p align="center">
   <img src="assets/itsybitsy.png" width="90" height="90"/>
 </p>

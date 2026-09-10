@@ -95,3 +95,7 @@ Aurick didn't have anything of interest. Apaar on the other hand may be our tick
 <img width="945" height="137" alt="image" src="https://github.com/user-attachments/assets/a946a1ee-36e1-4250-bc10-935cde6a5daa" />
 
 The local.txt file in particular looked very interesting.
+
+I felt way too lazy to figure out another terminal command with which I could output the text file, so I opted on setting up a listener and web shell instead.
+
+

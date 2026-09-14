@@ -532,3 +532,7 @@ if (defined('TESTING'))
 
 Indeed in this instance we can really see the credentials of root with the password itself that is just hardcoded in there. If root didn't change the password we may be able to escalate privileges that way. I first set up a netcat listener as
 
+I dont know what I wanted to do there...
+
+
+

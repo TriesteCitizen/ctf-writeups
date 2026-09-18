@@ -108,6 +108,20 @@ I click on the post to get these information
 
 <img width="942" height="358" alt="image" src="https://github.com/user-attachments/assets/e49eee05-2194-46d2-a28b-9d670273fb4b" />
 
+This could be a hint for port knocking, a security technique that opens a closed firewall port only after a client sends connection attempts to a specific, secret sequence of other closed ports. It works by settling for a pre-set sequence. In this case 1111, 2222, 3333 and 4444. After that the client (us) needs to send connection packets to those closed ports in the exact correct order. A background program (daemon) on the server watches the firewall logs for this exact pattern. Once the right sequence is detected, it temporarily updates its firewall rules to open a protected service port for that specific client IP address. To anyone else scanning the server, all protected ports appear completely closed and non-existent.
+
+With that knowledge I tried using a tool `knock` specifically built for port knocking. It automatically sends the packets in rapid succession.
+
+```
+root@ip-10-113-70-173:~# knock -v 10.113.148.100 1111 2222 3333 4444
+hitting tcp 10.113.148.100:1111
+hitting tcp 10.113.148.100:2222
+hitting tcp 10.113.148.100:3333
+hitting tcp 10.113.148.100:4444
+```
+
+That didn't really change anything for the given ports. I'm checking all filtered port states. I can't connect to port 21. 2230
+
 As I was not really sure what do to with the hint of said message I just decided to check out the version of this PHPbb site. By googling I found out the version could be queried by checking out the directory styles/prosilver/style.cfg
 
 <img width="974" height="617" alt="image" src="https://github.com/user-attachments/assets/b80c3fff-170a-4b7e-a4fc-d732f4912349" />

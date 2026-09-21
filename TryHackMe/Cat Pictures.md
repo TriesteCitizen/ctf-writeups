@@ -120,7 +120,207 @@ hitting tcp 10.113.148.100:3333
 hitting tcp 10.113.148.100:4444
 ```
 
-That didn't really change anything for the given ports. I'm checking all filtered port states. I can't connect to port 21. 2230
+That didn't really change anything for the given ports. Nmap didn't reveal any new open ports. I tried it again with a pre-set delay with the -d flag, but that didn't do much either. I also tried other port knocking utilities like nmap and netcat who had similar functionalities, but nothing seemed to work. I checked the configuration file of the knock utility.
+
+```
+root@ip-10-112-111-229:~# cat /etc/knockd.conf
+[options]
+	UseSyslog
+
+[openSSH]
+	sequence    = 7000,8000,9000
+	seq_timeout = 5
+	command     = /usr/usr/sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+	tcpflags    = syn
+
+[closeSSH]
+	sequence    = 9000,8000,7000
+	seq_timeout = 5
+	command     = /usr/usr/sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+	tcpflags    = syn
+
+[openHTTPS]
+	sequence    = 12345,54321,24680,13579
+	seq_timeout = 5
+	command     = /usr/local/sbin/knock_add -i -c INPUT -p tcp -d 443 -f %IP%
+	tcpflags    = syn
+```
+It doesn't seem to contain any FTP rule at all. Currently the configuration only has 
+
+I was so frustrated that I even opted on downloading some github py script that brute forced itself.
+
+pip install itertools
+```
+root@ip-10-112-111-229:~/Downloads# ip=10.112.146.123
+root@ip-10-112-111-229:~/Downloads# python3 ./knockit.py -b $ip 1111 2222 3333 4444
+
+******************************************************
+*                                                    *
+*  _  __                     _     _____  _          *
+* | |/ /                    | |   |_   _|| |         *
+* | ' /  _ __    ___    ___ | | __  | |  | |_        *
+* |  <  | '_ \  / _ \  / __|| |/ /  | |  | __|       *
+* | . \ | | | || (_) || (__ |   <  _| |_ | |_        *
+* |_|\_\|_| |_| \___/  \___||_|\_\|_____| \__|       *
+*                                                    *
+*                                                    *
+* KnockIt v1.0                                       *
+* Coded by thebish0p                                 *
+* https://github.com/thebish0p/                      *
+******************************************************
+
+
+[+] Knockit started attacking with all the possible combinations
+
+******************************************************
+[+] Knocking with sequence: (1111, 2222, 3333, 4444)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (1111, 2222, 4444, 3333)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (1111, 3333, 2222, 4444)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (1111, 3333, 4444, 2222)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (1111, 4444, 2222, 3333)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (1111, 4444, 3333, 2222)
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (2222, 1111, 3333, 4444)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (2222, 1111, 4444, 3333)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (2222, 3333, 1111, 4444)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (2222, 3333, 4444, 1111)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+[+] Knocking with sequence: (2222, 4444, 1111, 3333)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (2222, 4444, 3333, 1111)
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+[+] Knocking with sequence: (3333, 1111, 2222, 4444)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (3333, 1111, 4444, 2222)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (3333, 2222, 1111, 4444)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:4444
+******************************************************
+[+] Knocking with sequence: (3333, 2222, 4444, 1111)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+[+] Knocking with sequence: (3333, 4444, 1111, 2222)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (3333, 4444, 2222, 1111)
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+[+] Knocking with sequence: (4444, 1111, 2222, 3333)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (4444, 1111, 3333, 2222)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (4444, 2222, 1111, 3333)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:3333
+******************************************************
+[+] Knocking with sequence: (4444, 2222, 3333, 1111)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+[+] Knocking with sequence: (4444, 3333, 1111, 2222)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:1111
+[+] Knocking on port 10.112.146.123:2222
+******************************************************
+[+] Knocking with sequence: (4444, 3333, 2222, 1111)
+[+] Knocking on port 10.112.146.123:4444
+[+] Knocking on port 10.112.146.123:3333
+[+] Knocking on port 10.112.146.123:2222
+[+] Knocking on port 10.112.146.123:1111
+******************************************************
+```
+
+That didnt work either. This seems to be a deeper issue i have to figure out... 
+
 
 As I was not really sure what do to with the hint of said message I just decided to check out the version of this PHPbb site. By googling I found out the version could be queried by checking out the directory styles/prosilver/style.cfg
 

@@ -4,7 +4,7 @@
   <img src="assets/operationslither.png" width="90" height="90"/>
 </p>
 
-<p align="center"> <b>Difficulty</b>: ?/10 (???) <b>Completed</b>: ✔️ </p>
+<p align="center"> <b>Difficulty</b>: 1/10 (Very Easy) <b>Completed</b>: 05.10.2026 ✔️ </p>
 
 I feel like doing another OSINT challenge. Hopefully I have more luck with this one.
 

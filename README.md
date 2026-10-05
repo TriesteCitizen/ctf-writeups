@@ -72,6 +72,7 @@ Welcome to my personal CTF archive. This is where I will document my progress in
 - (TryHackMe/The Greenholt Phish.md) ✔️
 - (TryHackMe/Snapped Phish-ing Line.md) ✔️ Return on a later date to figure out, how to do this without terminal commands.
 - (TryHackMe/Benign.md) ✔️
+- (TryHackMe/Operation Slither.md) ✔️
 
 ## ⚔️ Attack Vectors
 - Reverse-Engineering
@@ -158,6 +159,10 @@ Welcome to my personal CTF archive. This is where I will document my progress in
   9. if we can run a specific python file, you might be able to modify or delete the existing file to write your own source code (see Library.md for good example)
 - CyberChef
 - GTFOBins
+- OSINT
+    - Check commits in github repositories
+    - Check social media accounts and who follows them
+    - Check comments and posts on every account
 
 ## 📌 Final Remark
 - The solutions are **self-acquired** and document **my approach**

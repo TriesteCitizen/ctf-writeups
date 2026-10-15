@@ -1,4 +1,4 @@
-<h1 align="center">Challenge 025 - Agent Sudo </h1>
+<h1 align="center">Agent Sudo </h1>
 <p align="center">
   <img width="88" height="90" alt="Bildschirmfoto vom 2025-09-23 05-18-13" src="https://github.com/user-attachments/assets/19d3fb9b-772b-437a-8d26-1f5c6b459daf" />
 </p>
@@ -140,7 +140,19 @@ ftp> quit
 221 Goodbye.
 ```
 
-At least this gave me some first hands-on experience with FTP and when to use Ascii and Binary.
+At least this gave me some first hands-on experience with FTP and when to use Ascii and Binary. Alternatively I can just use get...
+
+The text file says the following:
+
+```
+root@ip-10-112-104-140:~# cat To_agentJ.txt
+Dear agent J,
+
+All these alien like photos are fake! Agent R stored the real picture inside your directory. Your login password is somehow stored in the fake picture. It shouldn't be a problem for you.
+
+From,
+Agent C
+```
 
 When checking the pictures we have these cute images
 
@@ -151,5 +163,7 @@ When checking the pictures we have these cute images
 </p>
 
 One of those pictures apparently has some sort of login password hidden. Clear case of steganography. Let's make use of the Steganographic Decoder. Without any passwords there doesn't seem to be any kind of file hidden, so I tried making use of the binwalk tool, which for some reason was a real hassle to get working in the VM. It was such an inconvenience that I was about to pivot to other tools, which didn't work either though. After reinstalling binwalk it seemed to work though. Finally.
+
+
 
 
